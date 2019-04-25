@@ -16,7 +16,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"strconv"
 
 	"github.com/line/line-bot-sdk-go/linebot"
@@ -26,10 +25,10 @@ var bot *linebot.Client
 
 func main() {
 	var err error
-	bot, err = linebot.New(os.Getenv("ChannelSecret"), os.Getenv("ChannelAccessToken"))
+	bot, err = linebot.New("97e37e86dbbbe45e15a226e4a8b4eaf4", "wOlLqLyM+rc1MNzAyCswC33u/0qKWd+IPdhJvHIWFe+/N21oYmnnbbfoKV+i+zK7e4F6h2g8mAdLKv3C8NiQj/TOB0SLc1UxQWfwcgOekad/o3j4hTPFUXAbsSiZqQFd+vcochHvXXFlYENrUTmL+gdB04t89/1O/w1cDnyilFU=")
 	log.Println("Bot:", bot, " err:", err)
 	http.HandleFunc("/callback", callbackHandler)
-	port := os.Getenv("PORT")
+	port := "443"
 	addr := fmt.Sprintf(":%s", port)
 	http.ListenAndServe(addr, nil)
 }
