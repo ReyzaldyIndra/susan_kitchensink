@@ -17,9 +17,8 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
-
 	"github.com/line/line-bot-sdk-go/linebot"
+	"encoding/json"
 )
 
 var bot *linebot.Client
@@ -50,14 +49,36 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
-				quota, err := bot.GetMessageQuota().Do()
-				if err != nil {
-					log.Println("Quota err:", err)
-				}
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK! remain message:"+strconv.FormatInt(quota.Value, 10))).Do(); err != nil {
+				//quota, err := bot.GetMessageQuota().Do()
+				//if err != nil {
+				//	log.Println("Quota err:", err)
+				//}
+				result, err := detectIntent(message.Text)
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%v",result))).Do(); err != nil {
 					log.Print(err)
 				}
 			}
+		}
+	}
+}
+
+func detectIntent(text string) (map[string]interface{},error) {
+	var result map[string]interface{}
+	req, err := http.NewRequest("GET", fmt.Sprintf("http://111.223.254.14:8080/?sentence="+text), nil)
+	if err != nil {
+		return nil, err
+	}
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil,err
+	} else {
+		defer resp.Body.Close()
+		if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+			return nil,err
+		} else {
+			fmt.Println("INI RESULT : ",result)
+			return result,nil
 		}
 	}
 }
