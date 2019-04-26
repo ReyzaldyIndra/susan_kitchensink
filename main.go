@@ -66,16 +66,16 @@ func detectIntent(text string) (RuleBasedModel,error) {
 	var result RuleBasedModel
 	req, err := http.NewRequest("GET", fmt.Sprintf("http://111.223.254.14:8080/?sentence="+text), nil)
 	if err != nil {
-		return nil, err
+		return RuleBasedModel{}, err
 	}
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil,err
+		return RuleBasedModel{},err
 	} else {
 		defer resp.Body.Close()
 		if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-			return nil,err
+			return RuleBasedModel{},err
 		} else {
 			fmt.Println("INI RESULT : ",result)
 			return result,nil
