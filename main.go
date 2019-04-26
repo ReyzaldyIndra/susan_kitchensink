@@ -54,7 +54,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//	log.Println("Quota err:", err)
 				//}
 				result, err := detectIntent(message.Text)
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%v",result))).Do(); err != nil {
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Results))).Do(); err != nil {
 					log.Print(err)
 				}
 			}
@@ -62,8 +62,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func detectIntent(text string) (map[string]interface{},error) {
-	var result map[string]interface{}
+func detectIntent(text string) (RuleBasedModel,error) {
+	var result RuleBasedModel
 	req, err := http.NewRequest("GET", fmt.Sprintf("http://111.223.254.14:8080/?sentence="+text), nil)
 	if err != nil {
 		return nil, err
@@ -81,4 +81,9 @@ func detectIntent(text string) (map[string]interface{},error) {
 			return result,nil
 		}
 	}
+}
+
+type RuleBasedModel struct {
+	Deteksi string `json:"deteksi"`
+	Results string `json:"results"`
 }
