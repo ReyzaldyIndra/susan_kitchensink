@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Deeptalk.ai.iml" filepath="$PROJECT_DIR$/.idea/Deeptalk.ai.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/LineBotTemplate.iml" filepath="$PROJECT_DIR$/.idea/LineBotTemplate.iml" />
     </modules>
   </component>

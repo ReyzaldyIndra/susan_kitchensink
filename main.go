@@ -30,10 +30,12 @@ func main() {
 	http.HandleFunc("/callback", callbackHandler)
 	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%s", port)
+	log.Println(addr)
 	http.ListenAndServe(addr, nil)
 }
 
 func callbackHandler(w http.ResponseWriter, r *http.Request) {
+
 	events, err := bot.ParseRequest(r)
 
 	if err != nil {
@@ -44,6 +46,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+
 
 	for _, event := range events {
 		if event.Type == linebot.EventTypeMessage {
@@ -64,7 +67,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 func detectIntent(text string) (RuleBasedModel,error) {
 	var result RuleBasedModel
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://111.223.254.14:8080/?sentence="+text), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("https://deeptalk.ai/model/?sentence="+text), nil)
 	if err != nil {
 		return RuleBasedModel{}, err
 	}
