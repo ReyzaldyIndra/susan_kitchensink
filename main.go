@@ -73,9 +73,11 @@ func detectIntent(w http.ResponseWriter, r *http.Request, text string) (RuleBase
 	var result RuleBasedModel
 	var reqBody RequestModel
 
-	if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
-		return RuleBasedModel{},nil
-	}
+	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
+	// 	return RuleBasedModel{},nil
+	// }
+
+	reqBody.Sentence = text
 
 	reqBytes,err := json.Marshal(reqBody)
 
