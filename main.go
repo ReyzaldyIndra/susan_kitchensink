@@ -19,6 +19,7 @@ import (
 	"os"
 	"github.com/line/line-bot-sdk-go/linebot"
 	"encoding/json"
+	"bytes"
 )
 
 var bot *linebot.Client
@@ -73,7 +74,7 @@ func detectIntent(w http.ResponseWriter, r *http.Request, text string) (RuleBase
 	var reqBody RequestModel
 
 	if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
-		return nil,nil
+		return RuleBasedModel{},nil
 	}
 
 	reqBytes,err := json.Marshal(reqBody)
