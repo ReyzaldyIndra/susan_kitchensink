@@ -58,7 +58,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//}
 				log.Println("Ini Text nya : " + message.Text)
 				result, err := detectIntent(message.Text)
-		
+				log.Println("Ini result detect intent : " + result.Results)
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Results))).Do(); err != nil {
 					log.Print(err)
 				}
