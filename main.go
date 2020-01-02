@@ -71,13 +71,15 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 func detectIntent(w http.ResponseWriter, r *http.Request, text string) (RuleBasedModel,error) {
 	var result RuleBasedModel
-	var reqBody RequestModel
+	
 
 	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
 	// 	return RuleBasedModel{},nil
 	// }
 
-	reqBody.Sentence = text
+	reqBody := RequestModel{
+		Sentence = text,
+	}
 
 	reqBytes,err := json.Marshal(reqBody)
 
