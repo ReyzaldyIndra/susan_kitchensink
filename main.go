@@ -91,6 +91,5 @@ func detectIntent(text string) (RuleBasedModel,error) {
 }
 
 type RuleBasedModel struct {
-	Deteksi string `json:"deteksi"`
-	Results string `json:"results"`
+	Ans string `json:"ans"`
 }
