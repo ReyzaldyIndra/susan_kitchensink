@@ -87,6 +87,7 @@ func detectIntent(w http.ResponseWriter, r *http.Request, text string) (RuleBase
 	if err != nil {
 		return RuleBasedModel{}, err
 	}
+	req.Header.Set("Content-Type","application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
