@@ -67,7 +67,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 func detectIntent(text string) (RuleBasedModel,error) {
 	var result RuleBasedModel
-	req, err := http.NewRequest("GET", fmt.Sprintf("https://deeptalk.ai/model/?sentence="+text), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("http://111.223.254.14/nlp/?sentence_intent="+text), nil)
 	if err != nil {
 		return RuleBasedModel{}, err
 	}
