@@ -84,7 +84,7 @@ func detectIntent(text string) (RuleBasedModel,error) {
 		if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
 			return RuleBasedModel{},err
 		} else {
-			fmt.Println("INI RESULT : ",result)
+			log.Println("INI RESULT : ",result)
 			return result,nil
 		}
 	}
