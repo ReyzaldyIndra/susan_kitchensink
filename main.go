@@ -57,7 +57,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//	log.Println("Quota err:", err)
 				//}
 				log.Println("Ini Text nya : " + message.Text)
-				result, err := detectIntent(message.Text)
+				result, err := detectIntent(w,r,message.Text)
 				log.Println("Ini error detect intent : ",err)
 				log.Println("Ini result detect intent : " + result.Ans)
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Ans))).Do(); err != nil {
@@ -68,9 +68,15 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func detectIntent(text string) (RuleBasedModel,error) {
+func detectIntent(w http.ResponseWriter, r *http.Request, text string) (RuleBasedModel,error) {
 	var result RuleBasedModel
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://111.223.254.14/nlp/?sentence_intent="+text), nil)
+	var reqBody RequestModel
+
+	if err := json.NewDecoder(r.Body).Decode(&reqBody);
+
+	reqBytes,err := json.Marshal(reqBody);
+
+	req, err := http.NewRequest("POST", fmt.Sprintf("https://susan-service.herokuapp.com/listener/"), reqBytes)
 	if err != nil {
 		return RuleBasedModel{}, err
 	}
@@ -92,4 +98,8 @@ func detectIntent(text string) (RuleBasedModel,error) {
 
 type RuleBasedModel struct {
 	Ans string `json:"ans"`
+}
+
+type RequestModel struct {
+	Sentence string `json:"sentence"`
 }
