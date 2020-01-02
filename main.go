@@ -104,7 +104,7 @@ func detectIntent(w http.ResponseWriter, r *http.Request, text string) (RuleBase
 }
 
 type RuleBasedModel struct {
-	Ans string `json:"ans"`
+	Answer string `json:"answer"`
 }
 
 type RequestModel struct {
