@@ -56,7 +56,9 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//if err != nil {
 				//	log.Println("Quota err:", err)
 				//}
+				log.Println("Ini Text nya : " + message.Text)
 				result, err := detectIntent(message.Text)
+		
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Results))).Do(); err != nil {
 					log.Print(err)
 				}
