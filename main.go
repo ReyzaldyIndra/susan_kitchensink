@@ -70,6 +70,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
 					log.Print(err)
 				}
+			case *linebot.ImageMessage:
+				if err := handleText(message, event.ReplyToken); err != nil {
+					log.Print(err)
+				}
 			}
 		}
 	}
@@ -118,7 +122,7 @@ type RequestModel struct {
 	Sentence string `json:"sentence"`
 }
 
-func handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
+func handleText(message *linebot.TextMessage, replyToken string) error {
 	log.Println("masuk handleText")
 	switch message.Text {
 	case "carousel":
