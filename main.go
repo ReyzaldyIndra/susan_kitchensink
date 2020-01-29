@@ -111,3 +111,32 @@ type RuleBasedModel struct {
 type RequestModel struct {
 	Sentence string `json:"sentence"`
 }
+
+func handleText(message *linebot.TextMessage, replyToken string) error {
+	switch message.Text {
+	case "carousel":
+		imageURL1 := "https://ibb.co/x5Wkw6F"
+		imageURL2 := "https://ibb.co/R40WM9G"
+		imageURL3 := "https://ibb.co/kg6nQQZ"
+		template := linebot.NewCarouselTemplate(
+			linebot.NewCarouselColumn(
+				imageURL1, "Profil", "Berisi berbagai macam informasi mengenai profil pelanggan",
+				linebot.NewPostbackAction("profil", "profil", "profil", ""),
+			),
+			linebot.NewCarouselColumn(
+				imageURL2, "Transaksi", "Berisi berbagai macam informasi mengenai transaksi pelanggan",
+				linebot.NewPostbackAction("transaksi", "transakasi", "transakasi", ""),
+			),
+			linebot.NewCarouselColumn(
+				imageURL3, "Riwayat", "Berisi berbagai macam informasi mengenai riwayat pelanggan",
+				linebot.NewPostbackAction("riwayat", "riwayat", "riwayat", ""),
+			),
+		)
+		if _, err := bot.ReplyMessage(
+			replyToken,
+			linebot.NewTemplateMessage("Carousel alt text", template),
+		).Do(); err != nil {
+			return err
+		}
+	}
+}
