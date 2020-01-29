@@ -22,13 +22,13 @@ import (
 	"bytes"
 )
 
-// var bot *linebot.Client
+var bot *linebot.Client
 // KitchenSink app
-type KitchenSink struct {
-	bot         *linebot.Client
-	appBaseURL  string
-	downloadDir string
-}
+// type KitchenSink struct {
+// 	bot         *linebot.Client
+// 	appBaseURL  string
+// 	downloadDir string
+// }
 
 func main() {
 	var err error
@@ -118,11 +118,11 @@ type RequestModel struct {
 	Sentence string `json:"sentence"`
 }
 
-func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
+func handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	switch message.Text {
 	case "profile":
 		if source.UserID != "" {
-			profile, err := app.bot.GetProfile(source.UserID).Do()
+			profile, err := bot.GetProfile(source.UserID).Do()
 			if err != nil {
 				return app.replyText(replyToken, err.Error())
 			}
