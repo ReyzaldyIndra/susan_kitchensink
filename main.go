@@ -85,6 +85,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func detectIntent(w http.ResponseWriter, r *http.Request, text string) (RuleBasedModel,error) {
+	log.Println("masuk detectIntent")
 	var result RuleBasedModel
 	
 
