@@ -122,7 +122,7 @@ type RequestModel struct {
 	Sentence string `json:"sentence"`
 }
 
-func handleText(message *linebot.TextMessage, replyToken string) error {
+func handleText(message *linebot.ImageMessage, replyToken string) error {
 	log.Println("masuk handleText")
 	switch message.Text {
 	case "carousel":
