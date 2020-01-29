@@ -64,7 +64,9 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//	log.Println("Quota err:", err)
 				//}
 				log.Println("Ini Text nya : " + message.Text)
-				if message.Text == "menu"; message.Text == "Menu" {
+				if message.Text == "menu" {
+					handleText(message, event.ReplyToken)
+				} else if message.Text == "Menu" {
 					handleText(message, event.ReplyToken)
 				}
 				result, err := detectIntent(w,r,message.Text)
