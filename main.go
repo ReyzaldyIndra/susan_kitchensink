@@ -164,5 +164,5 @@ func handleText(message *linebot.TextMessage, replyToken string, source *linebot
 			return err
 		}
 	}
-	return nil
+	return message.Text
 }
