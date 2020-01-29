@@ -22,7 +22,13 @@ import (
 	"bytes"
 )
 
-var bot *linebot.Client
+// var bot *linebot.Client
+// KitchenSink app
+type KitchenSink struct {
+	bot         *linebot.Client
+	appBaseURL  string
+	downloadDir string
+}
 
 func main() {
 	var err error
@@ -112,8 +118,24 @@ type RequestModel struct {
 	Sentence string `json:"sentence"`
 }
 
-func handleText(message *linebot.TextMessage, replyToken string) error {
+func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	switch message.Text {
+	case "profile":
+		if source.UserID != "" {
+			profile, err := app.bot.GetProfile(source.UserID).Do()
+			if err != nil {
+				return app.replyText(replyToken, err.Error())
+			}
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewTextMessage("Display name: "+profile.DisplayName),
+				linebot.NewTextMessage("Status message: "+profile.StatusMessage),
+			).Do(); err != nil {
+				return err
+			}
+		} else {
+			return app.replyText(replyToken, "Bot can't use profile API without user ID")
+		}
 	case "carousel":
 		log.Println("iki carousel")
 		imageURL1 := "https://ibb.co/x5Wkw6F"
