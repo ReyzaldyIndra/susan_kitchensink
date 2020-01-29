@@ -115,6 +115,7 @@ type RequestModel struct {
 func handleText(message *linebot.TextMessage, replyToken string) error {
 	switch message.Text {
 	case "carousel":
+		log.Println("iki carousel")
 		imageURL1 := "https://ibb.co/x5Wkw6F"
 		imageURL2 := "https://ibb.co/R40WM9G"
 		imageURL3 := "https://ibb.co/kg6nQQZ"
