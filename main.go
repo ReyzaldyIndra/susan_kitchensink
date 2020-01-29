@@ -124,9 +124,10 @@ func handleText(message *linebot.TextMessage, replyToken string, source *linebot
 		if source.UserID != "" {
 			profile, err := bot.GetProfile(source.UserID).Do()
 			if err != nil {
-				return app.replyText(replyToken, err.Error())
+				// return app.replyText(replyToken, err.Error())
+				log.Println("error di profile")
 			}
-			if _, err := app.bot.ReplyMessage(
+			if _, err := bot.ReplyMessage(
 				replyToken,
 				linebot.NewTextMessage("Display name: "+profile.DisplayName),
 				linebot.NewTextMessage("Status message: "+profile.StatusMessage),
@@ -134,7 +135,8 @@ func handleText(message *linebot.TextMessage, replyToken string, source *linebot
 				return err
 			}
 		} else {
-			return app.replyText(replyToken, "Bot can't use profile API without user ID")
+			// return app.replyText(replyToken, "Bot can't use profile API without user ID")
+			log.Println("ga iso yen ra nganggo ID")
 		}
 	case "carousel":
 		log.Println("iki carousel")
