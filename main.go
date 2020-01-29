@@ -139,4 +139,5 @@ func handleText(message *linebot.TextMessage, replyToken string) error {
 			return err
 		}
 	}
+	return nil
 }
