@@ -64,16 +64,19 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//	log.Println("Quota err:", err)
 				//}
 				log.Println("Ini Text nya : " + message.Text)
+				if message.Text == "menu" {
+					handleText(message, event.replyToken)
+				}
 				result, err := detectIntent(w,r,message.Text)
 				log.Println("Ini error detect intent : ",err)
 				log.Println("Ini result detect intent : " + result.Answer)
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
 					log.Print(err)
 				}
-			case *linebot.ImageMessage:
-				if err := handleText(message, event.ReplyToken); err != nil {
-					log.Print(err)
-				}
+			// case *linebot.ImageMessage:
+			// 	if err := handleText(message, event.ReplyToken); err != nil {
+			// 		log.Print(err)
+			// 	}
 			}
 		}
 	}
@@ -122,7 +125,7 @@ type RequestModel struct {
 	Sentence string `json:"sentence"`
 }
 
-func handleText(message *linebot.ImageMessage, replyToken string) error {
+func handleText(message *linebot.TextMessage, replyToken string) error {
 	log.Println("masuk handleText")
 	// switch message.Text {
 	// case "carousel":
