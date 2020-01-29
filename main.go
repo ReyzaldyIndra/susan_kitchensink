@@ -119,25 +119,8 @@ type RequestModel struct {
 }
 
 func handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
+	log.Println("masuk handleText")
 	switch message.Text {
-	case "profile":
-		if source.UserID != "" {
-			profile, err := bot.GetProfile(source.UserID).Do()
-			if err != nil {
-				// return app.replyText(replyToken, err.Error())
-				log.Println("error di profile")
-			}
-			if _, err := bot.ReplyMessage(
-				replyToken,
-				linebot.NewTextMessage("Display name: "+profile.DisplayName),
-				linebot.NewTextMessage("Status message: "+profile.StatusMessage),
-			).Do(); err != nil {
-				return err
-			}
-		} else {
-			// return app.replyText(replyToken, "Bot can't use profile API without user ID")
-			log.Println("ga iso yen ra nganggo ID")
-		}
 	case "carousel":
 		log.Println("iki carousel")
 		imageURL1 := "https://ibb.co/x5Wkw6F"
@@ -163,6 +146,14 @@ func handleText(message *linebot.TextMessage, replyToken string, source *linebot
 		).Do(); err != nil {
 			return err
 		}
+	default:
+		log.Printf("Echo message to %s: %s", replyToken, message.Text)
+		if _, err := app.bot.ReplyMessage(
+			replyToken,
+			linebot.NewTextMessage(message.Text),
+		).Do(); err != nil {
+			return err
+		}
 	}
-	return message.Text
+	return nil
 }
