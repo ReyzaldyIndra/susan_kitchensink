@@ -159,5 +159,5 @@ func handleText(message *linebot.ImageMessage, replyToken string) error {
 	// 		return err
 	// 	}
 	// }
-	// return nil
+	return nil
 }
