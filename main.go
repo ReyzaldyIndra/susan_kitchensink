@@ -127,9 +127,9 @@ func handleText(message *linebot.ImageMessage, replyToken string) error {
 	// switch message.Text {
 	// case "carousel":
 		log.Println("iki carousel")
-		imageURL1 := "https://ibb.co/x5Wkw6F"
-		imageURL2 := "https://ibb.co/R40WM9G"
-		imageURL3 := "https://ibb.co/kg6nQQZ"
+		imageURL1 := "https://i.ibb.co/ggN2QJ4/Profile.jpg"
+		imageURL2 := "https://i.ibb.co/G32j10f/Transaksi.jpg"
+		imageURL3 := "https://i.ibb.co/svJSyy7/Riwayat.jpg"
 		template := linebot.NewCarouselTemplate(
 			linebot.NewCarouselColumn(
 				imageURL1, "Profil", "Berisi berbagai macam informasi mengenai profil pelanggan",
