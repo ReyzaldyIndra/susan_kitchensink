@@ -69,9 +69,9 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				result, err := detectIntent(w,r,message.Text)
 				log.Println("Ini error detect intent : ",err)
 				log.Println("Ini result detect intent : " + result.Answer)
+				log.Println("userId", event.Source.UserID)
 				log.Println("intent:", result.Intent)
 				if result.Intent == "CLOSINGS"{
-					log.Println("userId", event.Source.UserID)
 					bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
 					handleText(message, event.ReplyToken)
 				} else if message.Text == "Menu" || message.Text == "menu" {
