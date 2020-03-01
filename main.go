@@ -70,9 +70,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				log.Println("Ini error detect intent : ",err)
 				log.Println("Ini result detect intent : " + result.Answer)
 				log.Println("intent:", result.Intent)
-				if message.Text == "menu" && result.Intent == "CLOSINGS"{
-					handleText(message, event.ReplyToken)
-				} else if message.Text == "Menu" && result.Intent == "CLOSINGS" {
+				if result.Intent == "CLOSINGS"{
 					handleText(message, event.ReplyToken)
 				} else if message.Text == "Menu" || message.Text == "menu" {
 				handleText(message, event.ReplyToken)
@@ -149,11 +147,11 @@ func handleText(message *linebot.TextMessage, replyToken string) error {
 			),
 			linebot.NewCarouselColumn(
 				imageURL2, "Transaksi", "Berisi berbagai macam informasi mengenai transaksi pelanggan",
-				linebot.NewPostbackAction("transaksi", "transaksi", "Berapa biaya bpjs saya?", "transaksi"),
+				linebot.NewPostbackAction("transaksi", "transaksi", "Berapa biaya bpjs saya?", ""),
 			),
 			linebot.NewCarouselColumn(
 				imageURL3, "Riwayat", "Berisi berbagai macam informasi mengenai riwayat pelanggan",
-				linebot.NewPostbackAction("riwayat", "riwayat", "riwayat", ""),
+				linebot.NewPostbackAction("riwayat", "riwayat", "riwayat", "riyawat"),
 			),
 		)
 		if _, err := bot.ReplyMessage(
