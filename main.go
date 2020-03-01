@@ -65,15 +65,18 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//	log.Println("Quota err:", err)
 				//}
 				log.Println("Ini Text nya : " + message.Text)
-				if message.Text == "menu" {
-					handleText(message, event.ReplyToken)
-				} else if message.Text == "Menu" {
-					handleText(message, event.ReplyToken)
-				}
+
 				result, err := detectIntent(w,r,message.Text)
 				log.Println("Ini error detect intent : ",err)
 				log.Println("Ini result detect intent : " + result.Answer)
 				log.Println("intent:", result.Intent)
+				if message.Text == "menu" && result.Intent == "CLOSINGS"{
+					handleText(message, event.ReplyToken)
+				} else if message.Text == "Menu" && result.Intent == "CLOSINGS" {
+					handleText(message, event.ReplyToken)
+				} else if message.Text == "Menu" || result.Intent == "CLOSINGS" {
+				handleText(message, event.ReplyToken)
+			}
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
 					log.Print(err)
 				}
