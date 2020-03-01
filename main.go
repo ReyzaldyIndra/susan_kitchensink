@@ -44,7 +44,9 @@ func main() {
 func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 	var result RuleBasedModel
-	fmt.Sprintf("result", result)
+
+	var intent = result.Intent
+	log.Println("intent:", intent)
 	events, err := bot.ParseRequest(r)
 
 	if err != nil {
