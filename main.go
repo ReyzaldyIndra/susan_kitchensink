@@ -74,7 +74,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					handleText(message, event.ReplyToken)
 				} else if message.Text == "Menu" && result.Intent == "CLOSINGS" {
 					handleText(message, event.ReplyToken)
-				} else if message.Text == "Menu" || result.Intent == "CLOSINGS" {
+				} else if message.Text == "Menu" || message.Text == "menu" {
 				handleText(message, event.ReplyToken)
 			}
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
