@@ -46,7 +46,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	var result RuleBasedModel
 
 	var intent = result.Intent
-	log.Println("intent:", intent)
+
 	events, err := bot.ParseRequest(r)
 
 	if err != nil {
@@ -76,6 +76,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				result, err := detectIntent(w,r,message.Text)
 				log.Println("Ini error detect intent : ",err)
 				log.Println("Ini result detect intent : " + result.Answer)
+				log.Println("intent:", intent)
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
 					log.Print(err)
 				}
