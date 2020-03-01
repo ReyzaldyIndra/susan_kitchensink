@@ -43,6 +43,8 @@ func main() {
 
 func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
+	var result RuleBasedModel
+	fmt.Sprintf("result", result)
 	events, err := bot.ParseRequest(r)
 
 	if err != nil {
@@ -122,6 +124,7 @@ func detectIntent(w http.ResponseWriter, r *http.Request, text string) (RuleBase
 
 type RuleBasedModel struct {
 	Answer string `json:"answer"`
+	Intent string `json:"intent"`
 }
 
 type RequestModel struct {
