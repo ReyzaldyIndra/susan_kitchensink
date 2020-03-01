@@ -151,7 +151,7 @@ func handleText(message *linebot.TextMessage, replyToken string) error {
 			),
 			linebot.NewCarouselColumn(
 				imageURL3, "Riwayat", "Berisi berbagai macam informasi mengenai riwayat pelanggan",
-				linebot.NewPostbackAction("riwayat", "riwayat", "riwayat", "riyawat"),
+				linebot.NewPostbackAction("riwayat", "riwayat", "riwayat", ""),
 			),
 		)
 		if _, err := bot.ReplyMessage(
