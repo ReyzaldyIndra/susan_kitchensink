@@ -149,7 +149,7 @@ func handleText(message *linebot.TextMessage, replyToken string) error {
 			),
 			linebot.NewCarouselColumn(
 				imageURL2, "Transaksi", "Berisi berbagai macam informasi mengenai transaksi pelanggan",
-				linebot.NewPostbackAction("transaksi", "berapa biaya bpjs?", "transaksi", ""),
+				linebot.NewPostbackAction("berapa biaya bpjs?", "berapa biaya bpjs?", "berapa biaya bpjs?", "transaksi"),
 			),
 			linebot.NewCarouselColumn(
 				imageURL3, "Riwayat", "Berisi berbagai macam informasi mengenai riwayat pelanggan",
