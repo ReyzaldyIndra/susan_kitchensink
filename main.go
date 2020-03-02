@@ -92,7 +92,13 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
 							log.Print(err)
 						}
-					}
+					} else if message.Text != "Menu" || message.Text != "menu" {
+						//carouselBuilder(message, event.ReplyToken)
+						//if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
+						//	log.Print(err)
+						linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))
+						}
+
 				//}
 
 			// case *linebot.ImageMessage:
