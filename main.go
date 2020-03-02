@@ -20,6 +20,7 @@ import (
 	"github.com/line/line-bot-sdk-go/linebot"
 	"encoding/json"
 	"bytes"
+	"time"
 )
 
 var bot *linebot.Client
@@ -77,6 +78,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//} else if detail.Ktp != "" {
 					if result.Intent == "CLOSINGS"{
 						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
+						time.Sleep(2*time.Second)
 						handleText(message, event.ReplyToken)
 					} else if message.Text == "Menu" || message.Text == "menu" {
 						handleText(message, event.ReplyToken)
