@@ -82,6 +82,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						//log.Println("Run 2nd")
 						err := handleText(message, event.ReplyToken)
 						log.Println("Check Error : ",err)
+						log.Println("Reply Token : ", event.ReplyToken)
 					} else if message.Text == "Menu" || message.Text == "menu" {
 						handleText(message, event.ReplyToken)
 					}
