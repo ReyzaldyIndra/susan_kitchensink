@@ -77,10 +77,11 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//} else if detail.Ktp != "" {
 					if result.Intent == "CLOSINGS"{
 						log.Println("Run 1st")
-						//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
+						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
 						//time.Sleep(2*time.Second)
 						//log.Println("Run 2nd")
-						handleText(message, event.ReplyToken)
+						err := handleText(message, event.ReplyToken)
+						log.Println("Check Error : ",err)
 					} else if message.Text == "Menu" || message.Text == "menu" {
 						handleText(message, event.ReplyToken)
 					}
