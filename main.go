@@ -86,9 +86,13 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					} else if message.Text == "Menu" || message.Text == "menu" {
 						handleText(message, event.ReplyToken)
 					}
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
+
+					if _, err = bot.PushMessage(event.ReplyToken,linebot.NewTemplateMessage("Carousel alt text", handleText(message, event.ReplyToken)), linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
 						log.Print(err)
 					}
+
+
+
 				//}
 
 			// case *linebot.ImageMessage:
@@ -184,7 +188,7 @@ type UserDetail struct {
 	Ktp string `json:"ktp"`
 }
 
-func handleText(message *linebot.TextMessage, replyToken string) error {
+func handleText(message *linebot.TextMessage, replyToken string) *linebot.CarouselTemplate {
 	log.Println("masuk handleText")
 	// switch message.Text {
 	// case "carousel":
@@ -206,12 +210,14 @@ func handleText(message *linebot.TextMessage, replyToken string) error {
 				linebot.NewPostbackAction("riwayat", "riwayat", "riwayat", ""),
 			),
 		)
-		if _, err := bot.ReplyMessage(
-			replyToken,
-			linebot.NewTemplateMessage("Carousel alt text", template),
-		).Do(); err != nil {
-			return err
-		}
+		//if _, err := bot.ReplyMessage(
+		//	replyToken,
+		//	linebot.NewTemplateMessage("Carousel alt text", template),
+		//).Do(); err != nil {
+		//	return err
+		//}
+
+		return template
 	// default:
 	// 	log.Printf("Echo message to %s: %s", replyToken, message.Text)
 	// 	if _, err := bot.ReplyMessage(
@@ -221,5 +227,5 @@ func handleText(message *linebot.TextMessage, replyToken string) error {
 	// 		return err
 	// 	}
 	// }
-	return nil
+
 }

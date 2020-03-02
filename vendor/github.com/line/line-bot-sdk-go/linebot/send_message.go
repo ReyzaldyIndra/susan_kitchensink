@@ -107,6 +107,7 @@ func (call *ReplyMessageCall) encodeJSON(w io.Writer) error {
 
 // Do method
 func (call *ReplyMessageCall) Do() (*BasicResponse, error) {
+	log.Print("Do RUNNING !")
 	var buf bytes.Buffer
 	if err := call.encodeJSON(&buf); err != nil {
 		return nil, err
