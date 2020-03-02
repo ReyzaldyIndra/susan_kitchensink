@@ -88,7 +88,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							log.Print(err)
 						}
 					} else if message.Text == "Menu" || message.Text == "menu" {
-						linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message, event.ReplyToken)
+						//carouselBuilder(message, event.ReplyToken)
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
+							log.Print(err)
+						}
 					}
 				//}
 
