@@ -77,8 +77,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//	bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda"))
 				//} else if detail.Ktp != "" {
 					if result.Intent == "CLOSINGS"{
+						log.Println("Run 1st")
 						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
 						time.Sleep(2*time.Second)
+						log.Println("Run 2nd")
 						handleText(message, event.ReplyToken)
 					} else if message.Text == "Menu" || message.Text == "menu" {
 						handleText(message, event.ReplyToken)
