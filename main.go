@@ -94,10 +94,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						}
 					} else if message.Text != "Menu" || message.Text != "menu" {
 						//carouselBuilder(message, event.ReplyToken)
-						//if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
-						//	log.Print(err)
-						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer)))
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
+								log.Print(err)
 						}
+					}
 
 				//}
 
