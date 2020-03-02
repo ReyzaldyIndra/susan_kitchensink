@@ -84,7 +84,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						//log.Println("Check Error : ",err)
 						//log.Println("Reply Token : ", event.ReplyToken)
 						carousel := handleText(message,event.ReplyToken)
-						if _, err = bot.PushMessage(event.ReplyToken,linebot.NewTemplateMessage("Carousel alt text", carousel), linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
+						if _, err = bot.ReplyMessage(event.ReplyToken,linebot.NewTemplateMessage("Carousel alt text", carousel), linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
 							log.Print(err)
 						}
 					} else if message.Text == "Menu" || message.Text == "menu" {
