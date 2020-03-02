@@ -84,23 +84,22 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						//log.Println("Check Error : ",err)
 						//log.Println("Reply Token : ", event.ReplyToken)
 						//carousel := handleText(message,event.ReplyToken)
-						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer)),linebot.NewTemplateMessage("Carousel alt text", handleText(message,event.ReplyToken))).Do(); err != nil {
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer)),linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
 							log.Print(err)
 						}
 					} else if message.Text == "Menu" || message.Text == "menu" {
-						handleText(message, event.ReplyToken)
+						carouselBuilder(message, event.ReplyToken)
 					}
-
-
-
-
-
 				//}
 
 			// case *linebot.ImageMessage:
 			// 	if err := handleText(message, event.ReplyToken); err != nil {
 			// 		log.Print(err)
 			// 	}
+			}
+		} else if event.Type == linebot.EventTypeFollow {
+			if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Selamat datang di chatbot SUSAN unutuk pertama kali silahkan kirimkan nomor KTP anda")).Do(); err != nil {
+				log.Print(err)
 			}
 		}
 	}
@@ -190,8 +189,8 @@ type UserDetail struct {
 	Ktp string `json:"ktp"`
 }
 
-func handleText(message *linebot.TextMessage, replyToken string) *linebot.CarouselTemplate {
-	log.Println("masuk handleText")
+func carouselBuilder(message *linebot.TextMessage, replyToken string) *linebot.CarouselTemplate {
+	log.Println("masuk carouselBuilder")
 	// switch message.Text {
 	// case "carousel":
 		log.Println("iki carousel")
