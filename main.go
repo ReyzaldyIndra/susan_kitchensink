@@ -65,26 +65,67 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//	log.Println("Quota err:", err)
 				//}
 				log.Println("Ini Text nya : " + message.Text)
-
+				detail, err:= detectKtp(w,r,message.Text)
 				result, err := detectIntent(w,r,message.Text)
+				log.Println("Ini result detect ktp :" + detail.Ktp)
 				log.Println("Ini error detect intent : ",err)
 				log.Println("Ini result detect intent : " + result.Answer)
 				log.Println("userId", event.Source.UserID)
 				log.Println("intent:", result.Intent)
-				if result.Intent == "CLOSINGS"{
-					bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
-					handleText(message, event.ReplyToken)
-				} else if message.Text == "Menu" || message.Text == "menu" {
-				handleText(message, event.ReplyToken)
-			}
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
-					log.Print(err)
-				}
+				//if detail.Ktp == "" {
+				//	bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda"))
+				//} else if detail.Ktp != "" {
+					if result.Intent == "CLOSINGS"{
+						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
+						handleText(message, event.ReplyToken)
+					} else if message.Text == "Menu" || message.Text == "menu" {
+						handleText(message, event.ReplyToken)
+					}
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
+						log.Print(err)
+					}
+				//}
+
 			// case *linebot.ImageMessage:
 			// 	if err := handleText(message, event.ReplyToken); err != nil {
 			// 		log.Print(err)
 			// 	}
 			}
+		}
+	}
+}
+func detectKtp(w http.ResponseWriter, r *http.Request, text string) (UserDetail, error) {
+	log.Println("masuk detectKtp")
+	var detail UserDetail
+
+
+	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
+	// 	return RuleBasedModel{},nil
+	// }
+
+	reqBody := RequestModel{
+		Sentence : text,
+	}
+
+	reqBytes,err := json.Marshal(reqBody)
+
+	req, err := http.NewRequest("POST", fmt.Sprintf("https://susan-service.herokuapp.com/listener/"), bytes.NewBuffer(reqBytes))
+	if err != nil {
+		return UserDetail{}, err
+	}
+	req.Header.Set("Content-Type","application/json")
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+
+		return UserDetail{},err
+	} else {
+		defer resp.Body.Close()
+		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
+			return UserDetail{},err
+		} else {
+			log.Println("INI RESULT KTP : ",detail)
+			return detail,nil
 		}
 	}
 }
@@ -132,6 +173,10 @@ type RuleBasedModel struct {
 
 type RequestModel struct {
 	Sentence string `json:"sentence"`
+}
+
+type UserDetail struct {
+	Ktp string `json:"ktp"`
 }
 
 func handleText(message *linebot.TextMessage, replyToken string) error {
