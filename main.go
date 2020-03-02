@@ -76,21 +76,22 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//	bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda"))
 				//} else if detail.Ktp != "" {
 					if result.Intent == "CLOSINGS"{
-						log.Println("Run 1st")
-						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
-						//time.Sleep(2*time.Second)
-						//log.Println("Run 2nd")
-						err := handleText(message, event.ReplyToken)
-						log.Println("Check Error : ",err)
-						log.Println("Reply Token : ", event.ReplyToken)
+						//log.Println("Run 1st")
+						//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
+						////time.Sleep(2*time.Second)
+						////log.Println("Run 2nd")
+						//err := handleText(message, event.ReplyToken)
+						//log.Println("Check Error : ",err)
+						//log.Println("Reply Token : ", event.ReplyToken)
+						carousel := handleText(message,event.ReplyToken)
+						if _, err = bot.PushMessage(event.ReplyToken,linebot.NewTemplateMessage("Carousel alt text", carousel), linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
+							log.Print(err)
+						}
 					} else if message.Text == "Menu" || message.Text == "menu" {
 						handleText(message, event.ReplyToken)
 					}
 
-					carousel := handleText(message,event.ReplyToken)
-					if _, err = bot.PushMessage(event.ReplyToken,linebot.NewTemplateMessage("Carousel alt text", carousel), linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
-						log.Print(err)
-					}
+
 
 
 
