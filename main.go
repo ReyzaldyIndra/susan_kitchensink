@@ -13,14 +13,13 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"github.com/line/line-bot-sdk-go/linebot"
 	"log"
 	"net/http"
 	"os"
-	"github.com/line/line-bot-sdk-go/linebot"
-	"encoding/json"
-	"bytes"
-	"time"
 )
 
 var bot *linebot.Client
@@ -79,9 +78,9 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					if result.Intent == "CLOSINGS"{
 						log.Println("Run 1st")
 						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
-						time.Sleep(2*time.Second)
-						log.Println("Run 2nd")
-						handleText(message, event.ReplyToken)
+						//time.Sleep(2*time.Second)
+						//log.Println("Run 2nd")
+						//handleText(message, event.ReplyToken)
 					} else if message.Text == "Menu" || message.Text == "menu" {
 						handleText(message, event.ReplyToken)
 					}
