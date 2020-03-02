@@ -213,7 +213,7 @@ func carouselBuilder(message *linebot.TextMessage, replyToken string) *linebot.C
 			),
 			linebot.NewCarouselColumn(
 				imageURL2, "Transaksi", "Berisi berbagai macam informasi mengenai transaksi pelanggan",
-				linebot.NewPostbackAction("transaksi", "transaksi", "Berapa biaya bpjs saya?", ""),
+				linebot.NewPostbackAction("transaksi", "transaksi", "Berapa biaya bpjs saya?", "test"),
 			),
 			linebot.NewCarouselColumn(
 				imageURL3, "Riwayat", "Berisi berbagai macam informasi mengenai riwayat pelanggan",
