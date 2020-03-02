@@ -96,7 +96,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						//carouselBuilder(message, event.ReplyToken)
 						//if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do(); err != nil {
 						//	log.Print(err)
-						linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))
+						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer)))
 						}
 
 				//}
