@@ -68,16 +68,17 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				detail, err:= detectKtp(w,r,event.Source.UserID)
 				result, err := detectIntent(w,r,message.Text)
 				log.Println("Ini result detect ktp :" + detail.Ktp)
-				if(detail.Ktp==""){
-					log.Println("KTP nya kosong")
-				}
+				
 				log.Println("Ini error detect intent : ",err)
 				log.Println("Ini result detect intent : " + result.Answer)
 				log.Println("userId", event.Source.UserID)
 				log.Println("intent:", result.Intent)
-				//if detail.Ktp == "" {
-				//	bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda"))
-				//} else if detail.Ktp != "" {
+				if(detail.Ktp==""){
+					log.Println("KTP nya kosong")
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda")).Do(); err != nil {
+						log.Print(err)
+					}
+				} else {
 					if result.Intent == "CLOSINGS"{
 						//log.Println("Run 1st")
 						//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
@@ -101,6 +102,11 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 								log.Print(err)
 						}
 					}
+				}
+				//if detail.Ktp == "" {
+				//	bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda"))
+				//} else if detail.Ktp != "" {
+					
 
 				//}
 
