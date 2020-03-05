@@ -125,8 +125,8 @@ func detectKtp(w http.ResponseWriter, r *http.Request, text string) (UserDetail,
 	// 	return RuleBasedModel{},nil
 	// }
 
-	reqBody := RequestModel{
-		LineID : text,
+	reqBody := KtpRequestModel{
+		UserLineId : text,
 	}
 
 	reqBytes,err := json.Marshal(reqBody)
@@ -195,6 +195,10 @@ type RuleBasedModel struct {
 
 type RequestModel struct {
 	Sentence string `json:"sentence"`
+}
+
+type KtpRequestModel struct {
+	UserLineId string `json:"userLineId"`
 }
 
 type UserDetail struct {
