@@ -126,7 +126,7 @@ func detectKtp(w http.ResponseWriter, r *http.Request, text string) (UserDetail,
 	// }
 
 	reqBody := RequestModel{
-		userLineId : text,
+		LineID : text,
 	}
 
 	reqBytes,err := json.Marshal(reqBody)
