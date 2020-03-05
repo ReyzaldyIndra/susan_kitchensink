@@ -65,9 +65,12 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//	log.Println("Quota err:", err)
 				//}
 				log.Println("Ini Text nya : " + message.Text)
-				detail, err:= detectKtp(w,r,message.Text)
+				detail, err:= detectKtp(w,r,event.Source.UserID)
 				result, err := detectIntent(w,r,message.Text)
 				log.Println("Ini result detect ktp :" + detail.Ktp)
+				if(detail.Ktp==""){
+					log.Println("KTP nya kosong")
+				}
 				log.Println("Ini error detect intent : ",err)
 				log.Println("Ini result detect intent : " + result.Answer)
 				log.Println("userId", event.Source.UserID)
@@ -123,12 +126,12 @@ func detectKtp(w http.ResponseWriter, r *http.Request, text string) (UserDetail,
 	// }
 
 	reqBody := RequestModel{
-		Sentence : text,
+		userLineId : text,
 	}
 
 	reqBytes,err := json.Marshal(reqBody)
 
-	req, err := http.NewRequest("POST", fmt.Sprintf("https://susan-service.herokuapp.com/listener/"), bytes.NewBuffer(reqBytes))
+	req, err := http.NewRequest("GET", fmt.Sprintf("https://susan-service.herokuapp.com/ktp/"), bytes.NewBuffer(reqBytes))
 	if err != nil {
 		return UserDetail{}, err
 	}
@@ -195,6 +198,7 @@ type RequestModel struct {
 }
 
 type UserDetail struct {
+	LineID string `json:"userLineId"`
 	Ktp string `json:"ktp"`
 }
 
@@ -237,5 +241,5 @@ func carouselBuilder(message *linebot.TextMessage, replyToken string) *linebot.C
 	// 		return err
 	// 	}
 	// }
-
+	
 }
