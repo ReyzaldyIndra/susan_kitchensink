@@ -87,28 +87,32 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda")).Do(); err != nil {
 						log.Print(err)
 					}
-					updateNoKTP(w,r,event.Source.UserID,message.Text)
-				} else {
-					if result.Intent == "CLOSINGS"{
-						//log.Println("Run 1st")
-						//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
-						////time.Sleep(2*time.Second)
-						////log.Println("Run 2nd")
-						//err := handleText(message, event.ReplyToken)
-						//log.Println("Check Error : ",err)
-						//log.Println("Reply Token : ", event.ReplyToken)
-						//carousel := handleText(message,event.ReplyToken)
-						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer)),linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
-							log.Print(err)
-						}
-					} else if message.Text == "Menu" || message.Text == "menu" {
-						//carouselBuilder(message, event.ReplyToken)
-						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
+								updateNoKTP(w,r,event.Source.UserID,message.Text)
+						} else {
+							if result.Intent == "CLOSINGS"{
+								//log.Println("Run 1st")
+								//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
+								////time.Sleep(2*time.Second)
+								////log.Println("Run 2nd")
+								//err := handleText(message, event.ReplyToken)
+								//log.Println("Check Error : ",err)
+								//log.Println("Reply Token : ", event.ReplyToken)
+								//carousel := handleText(message,event.ReplyToken)
+								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer)),linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
+									log.Print(err)
+								}
+							} else if message.Text == "Menu" || message.Text == "menu" {
+								//carouselBuilder(message, event.ReplyToken)
+								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
 							log.Print(err)
 						}
 					} else if message.Text != "Menu" || message.Text != "menu" {
 						//carouselBuilder(message, event.ReplyToken)
 						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
+								log.Print(err)
+						}
+					} else if message.Text == "transaksi" {
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", transactionCarousel(message,event.ReplyToken))).Do(); err != nil {
 								log.Print(err)
 						}
 					}
@@ -340,4 +344,23 @@ func carouselBuilder(message *linebot.TextMessage, replyToken string) *linebot.C
 	// 	}
 	// }
 	
+}
+
+func transactionCarousel(message *linebot.TextMessage, replyToken string) *linebot.CarouselTemplate {
+	log.Println("masuk transactionCarousel")
+	template := linebot.NewCarouselTemplate(
+		linebot.NewCarouselColumn(
+			"", "Biaya", "keterangan biaya",
+			linebot.NewPostbackAction("Biaya", "Biaya", "Berapa biaya bpjs saya?", ""),
+		),
+		linebot.NewCarouselColumn(
+			"", "Tagihan", "Keterangan tagihan",
+			linebot.NewPostbackAction("Tagihan", "Tagihan", "Berapa tagihan bpjs saya?", ""),
+		),
+		linebot.NewCarouselColumn(
+			"", "Iuran", "Keterangan iuran",
+			linebot.NewPostbackAction("Iuran", "Iuran", "Berapa iuran bpjs saya", ""),
+		),
+	)
+	return template
 }
