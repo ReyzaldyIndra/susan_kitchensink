@@ -164,7 +164,7 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
 			return UserDetail{},err
 		} else {
-			log.Println("INI RESULT LINE ID dan KTP : ",detail)
+			log.Println("INI RESULT LINE ID dan KTP dari register : ",detail)
 			return detail,nil
 		}
 	}
@@ -201,7 +201,7 @@ func updateNoKTP(w http.ResponseWriter, r *http.Request, userLineId string,ktp s
 		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
 			return UserDetail{},err
 		} else {
-			log.Println("INI RESULT LINE ID dan KTP : ",detail)
+			log.Println("INI RESULT LINE ID dan KTP dari update: ",detail)
 			return detail,nil
 		}
 	}
