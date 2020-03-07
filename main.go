@@ -243,7 +243,7 @@ func updateNoKTP(w http.ResponseWriter, r *http.Request, userLineId string,ktp s
 //		}
 //	}
 //}
-
+//test
 func detectIntent(w http.ResponseWriter, r *http.Request, text string, lineId string) (RuleBasedModel,error) {
 	log.Println("masuk detectIntent")
 	var result RuleBasedModel
