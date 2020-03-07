@@ -106,17 +106,17 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
 							log.Print(err)
 						}
-					} else if message.Text != "Menu" || message.Text != "menu" {
-						//carouselBuilder(message, event.ReplyToken)
-						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
-								log.Print(err)
-						}
 					} else if message.Text == "transaksi" {
-						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", transactionCarousel(message,event.ReplyToken))).Do(); err != nil {
-								log.Print(err)
-						}
+								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", transactionCarousel(message,event.ReplyToken))).Do(); err != nil {
+									log.Print(err)
+								}
+					}else if message.Text != "Menu" || message.Text != "menu" {
+					//carouselBuilder(message, event.ReplyToken)
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
+							log.Print(err)
 					}
 				}
+			}
 				//if detail.Ktp == "" {
 				//	bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda"))
 				//} else if detail.Ktp != "" {
