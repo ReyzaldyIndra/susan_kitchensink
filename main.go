@@ -78,16 +78,19 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				log.Println("intent:", result.Intent)
 				if(result.Answer=="userIdNULL"){
 					log.Println("Belum terdaftar")
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih anda telah terdaftar silahkan ajukan pertanyaan anda atau ketik 'menu' untuk mengetahui layanan kami")).Do(); err != nil {
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Anda belum terdaftar, silahkan masukkan nomor KTP Anda")).Do(); err != nil {
 						log.Print(err)
 					}
+					// Terima kasih anda telah terdaftar silahkan ajukan pertanyaan anda atau ketik 'menu' untuk mengetahui layanan kami
 					registerNewUser(w,r,event.Source.UserID,message.Text)
+					return
 				} else if(result.Answer=="ktpNULL") {
 					log.Println("No KTP tidak ada")
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda")).Do(); err != nil {
 						log.Print(err)
 					}
-								updateNoKTP(w,r,event.Source.UserID,message.Text)
+					updateNoKTP(w,r,event.Source.UserID,message.Text)
+					return
 						} else {
 							if result.Intent == "CLOSINGS"{
 								//log.Println("Run 1st")
