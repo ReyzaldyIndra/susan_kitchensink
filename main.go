@@ -71,10 +71,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				log.Println("Ini Text nya : " + message.Text)
 				detail, err:= detectKtp(w,r,event.Source.UserID)
 				//result, err := detectIntent(w,r,message.Text,event.Source.UserID)
-				log.Println("Ini result detectKtp : IDLine :" + detail.LineID + "Ktp" + detail.Ktp)
+				log.Println("Ini result detectKtp : IDLine :" + detail.LineID + "Ktp" + detail.Ktp,err)
 				//detail1, err:= updateNoKTP(w,r,event.Source.UserID,message.Text)
 				//log.Println("Ini result update :" + detail1.LineID + detail1.Ktp)
-				log.Println("Ini error detect intent : ",err)
+				//log.Println("Ini error detect intent : ",err)
 				//log.Println("Ini result detect intent : " + result.Answer)
 				log.Println("userId", event.Source.UserID)
 				//log.Println("intent:", result.Intent)
@@ -160,7 +160,6 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 	log.Println("masuk registerNewUser")
 	var detail UserDetail
 
-
 	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
 	// 	return RuleBasedModel{},nil
 	// }
@@ -234,7 +233,6 @@ func updateNoKTP(w http.ResponseWriter, r *http.Request, userLineId string,ktp s
 func detectKtp(w http.ResponseWriter, r *http.Request, text string) (UserDetail, error) {
 	log.Println("masuk detectKtp")
 	var detail UserDetail
-
 
 	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
 	// 	return RuleBasedModel{},nil
