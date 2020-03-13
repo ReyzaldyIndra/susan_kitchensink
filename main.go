@@ -67,16 +67,16 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//	log.Println("Quota err:", err)
 				//}
 				log.Println("Ini Text nya : " + message.Text)
-				//detail, err:= registerNewUser(w,r,event.Source.UserID,message.Text)
-				result, err := detectIntent(w,r,message.Text,event.Source.UserID)
-				//log.Println("Ini result registerNewUser :" + detail.LineID + detail.Ktp)
+				detail, err:= detectKtp(w,r,event.Source.UserID)
+				//result, err := detectIntent(w,r,message.Text,event.Source.UserID)
+				//log.Println("Ini result detectKtp : IDLine :" + detail.LineID + "Ktp" + detail.Ktp)
 				//detail1, err:= updateNoKTP(w,r,event.Source.UserID,message.Text)
 				//log.Println("Ini result update :" + detail1.LineID + detail1.Ktp)
 				log.Println("Ini error detect intent : ",err)
-				log.Println("Ini result detect intent : " + result.Answer)
+				//log.Println("Ini result detect intent : " + result.Answer)
 				log.Println("userId", event.Source.UserID)
-				log.Println("intent:", result.Intent)
-				if(result.Answer=="userIdNULL"){
+				//log.Println("intent:", result.Intent)
+				if detail.Ktp == "" {
 					log.Println("Belum terdaftar")
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Anda belum terdaftar, silahkan masukkan nomor KTP Anda")).Do(); err != nil {
 						log.Print(err)
@@ -84,7 +84,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					// Terima kasih anda telah terdaftar silahkan ajukan pertanyaan anda atau ketik 'menu' untuk mengetahui layanan kami
 					registerNewUser(w,r,event.Source.UserID,message.Text)
 					return
-				} else if(result.Answer=="ktpNULL") {
+				} else if detail.Ktp == "" {
 					log.Println("No KTP tidak ada")
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda")).Do(); err != nil {
 						log.Print(err)
@@ -92,19 +92,21 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					updateNoKTP(w,r,event.Source.UserID,message.Text)
 					return
 						} else {
-							if result.Intent == "CLOSINGS"{
-								//log.Println("Run 1st")
-								//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
-								////time.Sleep(2*time.Second)
-								////log.Println("Run 2nd")
-								//err := handleText(message, event.ReplyToken)
-								//log.Println("Check Error : ",err)
-								//log.Println("Reply Token : ", event.ReplyToken)
-								//carousel := handleText(message,event.ReplyToken)
-								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer)),linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
-									log.Print(err)
-								}
-							} else if message.Text == "Menu" || message.Text == "menu" {
+							//if result.Intent == "CLOSINGS"{
+							//	//log.Println("Run 1st")
+							//	//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
+							//	////time.Sleep(2*time.Second)
+							//	////log.Println("Run 2nd")
+							//	//err := handleText(message, event.ReplyToken)
+							//	//log.Println("Check Error : ",err)
+							//	//log.Println("Reply Token : ", event.ReplyToken)
+							//	//carousel := handleText(message,event.ReplyToken)
+							//	if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer)),linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
+							//		log.Print(err)
+							//	}
+							//}
+							//else
+							if message.Text == "Menu" || message.Text == "menu" {
 								//carouselBuilder(message, event.ReplyToken)
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
 							log.Print(err)
@@ -113,12 +115,13 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", transactionCarousel(message,event.ReplyToken))).Do(); err != nil {
 									log.Print(err)
 								}
-					}else if message.Text != "Menu" || message.Text != "menu" {
-					//carouselBuilder(message, event.ReplyToken)
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
-							log.Print(err)
 					}
-				}
+					//else if message.Text != "Menu" || message.Text != "menu" {
+					////carouselBuilder(message, event.ReplyToken)
+					//if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
+					//		log.Print(err)
+					//}
+				//}
 			}
 				//if detail.Ktp == "" {
 				//	bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda"))
@@ -215,42 +218,43 @@ func updateNoKTP(w http.ResponseWriter, r *http.Request, userLineId string,ktp s
 }
 
 
-//func detectKtp(w http.ResponseWriter, r *http.Request, text string) (UserDetail, error) {
-//	log.Println("masuk detectKtp")
-//	var detail UserDetail
-//
-//
-//	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
-//	// 	return RuleBasedModel{},nil
-//	// }
-//
-//	reqBody := KtpRequestModel{
-//		UserLineId : text,
-//	}
-//
-//	reqBytes,err := json.Marshal(reqBody)
-//
-//	req, err := http.NewRequest("GET", fmt.Sprintf("https://susan-service.herokuapp.com/ktp/"), bytes.NewBuffer(reqBytes))
-//	if err != nil {
-//		return UserDetail{}, err
-//	}
-//	req.Header.Set("Content-Type","application/json")
-//	client := &http.Client{}
-//	resp, err := client.Do(req)
-//	if err != nil {
-//
-//		return UserDetail{},err
-//	} else {
-//		defer resp.Body.Close()
-//		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
-//			return UserDetail{},err
-//		} else {
-//			log.Println("INI RESULT KTP : ",detail)
-//			return detail,nil
-//		}
-//	}
-//}
-//test
+func detectKtp(w http.ResponseWriter, r *http.Request, text string) (UserDetail, error) {
+	log.Println("masuk detectKtp")
+	var detail UserDetail
+
+
+	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
+	// 	return RuleBasedModel{},nil
+	// }
+
+	reqBody := KtpRequestModel{
+		UserLineId : text,
+	}
+
+	reqBytes,err := json.Marshal(reqBody)
+
+	req, err := http.NewRequest("GET", fmt.Sprintf("https://susan-service.herokuapp.com/ktp/"), bytes.NewBuffer(reqBytes))
+	if err != nil {
+		return UserDetail{}, err
+	}
+	req.Header.Set("Content-Type","application/json")
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+
+		return UserDetail{},err
+	} else {
+		defer resp.Body.Close()
+		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
+			return UserDetail{},err
+		} else {
+			log.Println("INI RESULT KTP : ",detail)
+			return detail,nil
+		}
+	}
+}
+
+
 func detectIntent(w http.ResponseWriter, r *http.Request, text string, lineId string) (RuleBasedModel,error) {
 	log.Println("masuk detectIntent")
 	var result RuleBasedModel
