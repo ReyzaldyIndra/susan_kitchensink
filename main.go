@@ -105,6 +105,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					//	return
 					//		}
 				}else if detail.Ktp != "" {
+					result, err := detectIntent(w,r,message.Text,event.Source.UserID)
 							//if result.Intent == "CLOSINGS"{
 							//	//log.Println("Run 1st")
 							//	//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
@@ -128,13 +129,12 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", transactionCarousel(message,event.ReplyToken))).Do(); err != nil {
 									log.Print(err)
 								}
+					} else if message.Text != "Menu" || message.Text != "menu" {
+					//carouselBuilder(message, event.ReplyToken)
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
+							log.Print(err)
 					}
-					//else if message.Text != "Menu" || message.Text != "menu" {
-					////carouselBuilder(message, event.ReplyToken)
-					//if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
-					//		log.Print(err)
-					//}
-				//}
+				}
 			}
 				//if detail.Ktp == "" {
 				//	bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda"))
