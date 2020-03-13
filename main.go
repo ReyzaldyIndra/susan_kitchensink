@@ -180,24 +180,24 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 	resp, err := client.Do(req)
 	log.Println("ini respone su", resp)
 	if err != nil {
-		//events, _ := bot.ParseRequest(r)
-		//for _, event := range events {
-		//	if event.Type == linebot.EventTypeMessage {
-		//		switch err := event.Message.(type) {
-		//		case *linebot.TextMessage:
-		//			bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih anda telah terdaftar"))
-		//			log.Println(err)
-		//		}
-		//	}
-		//}
+		events, _ := bot.ParseRequest(r)
+		for _, event := range events {
+			if event.Type == linebot.EventTypeMessage {
+				switch err := event.Message.(type) {
+				case *linebot.TextMessage:
+					bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih anda telah terdaftar"))
+					log.Println(err)
+				}
+			}
+		}
 		return UserDetail{},err
 	} else {
 		defer resp.Body.Close()
 		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
 			return UserDetail{},err
 		} else {
-			log.Println("INI RESULT LINE ID dan KTP dari register : ",detail)
-			return detail,nil
+			log.Println("INI RESULT LINE ID dan KTP dari register : ",UserDetail{})
+			return UserDetail{},err
 		}
 	}
 }
