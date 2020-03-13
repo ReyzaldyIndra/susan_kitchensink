@@ -76,7 +76,6 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//log.Println("Ini result update :" + detail1.LineID + detail1.Ktp)
 				//log.Println("Ini error detect intent : ",err)
 				//log.Println("Ini result detect intent : " + result.Answer)
-				return
 				log.Println("userId", event.Source.UserID)
 				//log.Println("intent:", result.Intent)
 				if detail.Ktp == "" {
