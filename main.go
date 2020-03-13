@@ -190,6 +190,16 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 			return detail,nil
 		}
 	}
+	events, err := bot.ParseRequest(r)
+	for _, event := range events {
+		if event.Type == linebot.EventTypeMessage {
+			switch _ := event.Message.(type) {
+			case *linebot.TextMessage:
+				bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih anda telah terdaftar"))
+			}
+		}
+	}
+	return UserDetail{}, nil
 }
 
 func updateNoKTP(w http.ResponseWriter, r *http.Request, userLineId string,ktp string) (UserDetail, error) {
