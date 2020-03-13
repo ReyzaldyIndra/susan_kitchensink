@@ -20,6 +20,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
+
 	//"firebase.google.com/go/db"
 	//"firebase.google.com/go"
 )
@@ -77,21 +79,32 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				log.Println("userId", event.Source.UserID)
 				//log.Println("intent:", result.Intent)
 				if detail.Ktp == "" {
-					log.Println("Belum terdaftar")
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Anda belum terdaftar, silahkan masukkan nomor KTP Anda")).Do(); err != nil {
-						log.Print(err)
+					str2 := message.Text
+					i2, err := strconv.ParseInt(str2, 10, 64)
+					if err == nil {
+						log.Println(i2)
+						registerNewUser(w, r, event.Source.UserID, message.Text)
+						return
+					} else {
+						log.Println("string error", i2)
+						log.Println("Belum terdaftar")
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Anda belum terdaftar, silahkan masukkan nomor KTP Anda")).Do(); err != nil {
+							log.Print(err)
+						}
+						return
 					}
+
 					// Terima kasih anda telah terdaftar silahkan ajukan pertanyaan anda atau ketik 'menu' untuk mengetahui layanan kami
-					registerNewUser(w,r,event.Source.UserID,message.Text)
-					return
-				} else if detail.Ktp == "" {
-					log.Println("No KTP tidak ada")
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda")).Do(); err != nil {
-						log.Print(err)
-					}
-					updateNoKTP(w,r,event.Source.UserID,message.Text)
-					return
-						} else {
+					//}
+					//else if detail.Ktp == "" {
+					//	log.Println("No KTP tidak ada")
+					//	if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda")).Do(); err != nil {
+					//		log.Print(err)
+					//	}
+					//	updateNoKTP(w,r,event.Source.UserID,message.Text)
+					//	return
+					//		}
+				}else if detail.Ktp != "" {
 							//if result.Intent == "CLOSINGS"{
 							//	//log.Println("Run 1st")
 							//	//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
