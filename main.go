@@ -84,6 +84,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					if err == nil {
 						log.Println(i2)
 						registerNewUser(w, r, event.Source.UserID, message.Text)
+						detectKtp(w,r,event.Source.UserID)
 						return
 					} else {
 						log.Println("string error", i2)
