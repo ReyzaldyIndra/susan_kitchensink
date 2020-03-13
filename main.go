@@ -87,7 +87,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						return
 					} else {
 						log.Println("string error", i2)
-						log.Println("Belum terdaftar")
+						log.Println("registerNewUser gak jalan")
 						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Anda belum terdaftar, silahkan masukkan nomor KTP Anda")).Do(); err != nil {
 							log.Print(err)
 						}
@@ -178,6 +178,7 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 	req.Header.Set("Content-Type","application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
+	log.Println("ini respone su", resp)
 	if err != nil {
 		//events, _ := bot.ParseRequest(r)
 		//for _, event := range events {
