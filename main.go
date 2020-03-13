@@ -190,9 +190,10 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 			events, _ := bot.ParseRequest(r)
 			for _, event := range events {
 				if event.Type == linebot.EventTypeMessage {
-					switch _ := event.Message.(type) {
+					switch err := event.Message.(type) {
 					case *linebot.TextMessage:
 						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih anda telah terdaftar"))
+						log.Println(err)
 					}
 				}
 			}
