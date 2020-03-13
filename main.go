@@ -174,31 +174,31 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 
 	req, err := http.NewRequest("POST", fmt.Sprintf("https://susan-service.herokuapp.com/ktp/post/"), bytes.NewBuffer(reqBytes))
 	if err != nil {
-		return UserDetail{}, err
+		return detail, err
 	}
 	req.Header.Set("Content-Type","application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	log.Println("ini respone su", resp)
 	if err != nil {
-
-		return UserDetail{},err
+		log.Println("resp err nil")
+		log.Println("INI RESULT LINE ID dan KTP dari register : ",detail)
+		events, _ := bot.ParseRequest(r)
+		for _, event := range events {
+			if event.Type == linebot.EventTypeMessage {
+				switch err := event.Message.(type) {
+				case *linebot.TextMessage:
+					bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih anda telah terdaftar"))
+					log.Println(err)
+				}
+			}
+		}
+		return detail,err
 	} else {
 		defer resp.Body.Close()
 		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
-			return UserDetail{},err
+			return detail,err
 		} else {
-			log.Println("INI RESULT LINE ID dan KTP dari register : ",UserDetail{})
-			events, _ := bot.ParseRequest(r)
-			for _, event := range events {
-				if event.Type == linebot.EventTypeMessage {
-					switch err := event.Message.(type) {
-					case *linebot.TextMessage:
-						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih anda telah terdaftar"))
-						log.Println(err)
-					}
-				}
-			}
 			return UserDetail{},err
 		}
 	}
