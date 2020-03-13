@@ -69,9 +69,9 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//	log.Println("Quota err:", err)
 				//}
 				log.Println("Ini Text nya : " + message.Text)
-				detail, err:= detectKtp(w,r,event.Source.UserID)
+				detail, _:= detectKtp(w,r,event.Source.UserID)
 				//result, err := detectIntent(w,r,message.Text,event.Source.UserID)
-				log.Println("Ini result detectKtp : IDLine :" + detail.LineID + "Ktp" + detail.Ktp,err)
+				log.Println("Ini result detectKtp : IDLine :" + detail.LineID + "Ktp" + detail.Ktp)
 				//detail1, err:= updateNoKTP(w,r,event.Source.UserID,message.Text)
 				//log.Println("Ini result update :" + detail1.LineID + detail1.Ktp)
 				//log.Println("Ini error detect intent : ",err)
