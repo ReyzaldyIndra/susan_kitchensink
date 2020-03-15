@@ -336,20 +336,17 @@ func carouselBuilder(message *linebot.TextMessage, replyToken string) *linebot.C
 	// switch message.Text {
 	// case "carousel":
 		log.Println("iki carousel")
-		imageURL1 := "https://i.ibb.co/ggN2QJ4/Profile.jpg"
-		imageURL2 := "https://i.ibb.co/G32j10f/Transaksi.jpg"
-		imageURL3 := "https://i.ibb.co/svJSyy7/Riwayat.jpg"
 		template := linebot.NewCarouselTemplate(
 			linebot.NewCarouselColumn(
-				imageURL1, "Profil", "Berisi berbagai macam informasi mengenai profil pelanggan",
+				"https://i.ibb.co/ggN2QJ4/Profile.jpg", "Profil", "Berisi berbagai macam informasi mengenai profil pelanggan",
 				linebot.NewPostbackAction("profil", "profil", "profil", ""),
 			),
 			linebot.NewCarouselColumn(
-				imageURL2, "Transaksi", "Berisi berbagai macam informasi mengenai transaksi pelanggan",
+				"https://i.ibb.co/G32j10f/Transaksi.jpg", "Transaksi", "Berisi berbagai macam informasi mengenai transaksi pelanggan",
 				linebot.NewPostbackAction("transaksi", "transaksi", "transaksi", ""),
 			),
 			linebot.NewCarouselColumn(
-				imageURL3, "Riwayat", "Berisi berbagai macam informasi mengenai riwayat pelanggan",
+				"https://i.ibb.co/svJSyy7/Riwayat.jpg", "Riwayat", "Berisi berbagai macam informasi mengenai riwayat pelanggan",
 				linebot.NewPostbackAction("riwayat", "riwayat", "riwayat", ""),
 			),
 		)
