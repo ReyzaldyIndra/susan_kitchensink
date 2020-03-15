@@ -21,9 +21,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-
-	//"firebase.google.com/go/db"
-	//"firebase.google.com/go"
+	"strings"
 )
 
 var bot *linebot.Client
@@ -120,16 +118,16 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							//	}
 							//}
 							//else
-							if message.Text == "Menu" || message.Text == "menu" {
+							if strings.ToLower(message.Text) == "menu" {
 								//carouselBuilder(message, event.ReplyToken)
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
 							log.Print(err)
 						}
-					} else if message.Text == "transaksi" {
+					} else if strings.ToLower(message.Text) == "transaksi" {
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", transactionCarousel(message,event.ReplyToken))).Do(); err != nil {
 									log.Print(err)
 								}
-					} else if message.Text != "Menu" || message.Text != "menu" {
+					} else if strings.ToLower(message.Text) != "menu" {
 					//carouselBuilder(message, event.ReplyToken)
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
 							log.Print(err)
@@ -203,42 +201,42 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 	}
 }
 
-func updateNoKTP(w http.ResponseWriter, r *http.Request, userLineId string,ktp string) (UserDetail, error) {
-	log.Println("masuk updateNoKTP")
-	var detail UserDetail
-
-
-	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
-	// 	return RuleBasedModel{},nil
-	// }
-
-	reqBody := UserDetail{
-		LineID : userLineId,
-		Ktp:ktp,
-	}
-
-	reqBytes,err := json.Marshal(reqBody)
-
-	req, err := http.NewRequest("PUT", fmt.Sprintf("https://susan-service.herokuapp.com/ktp/update/"), bytes.NewBuffer(reqBytes))
-	if err != nil {
-		return UserDetail{}, err
-	}
-	req.Header.Set("Content-Type","application/json")
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-
-		return UserDetail{},err
-	} else {
-		defer resp.Body.Close()
-		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
-			return UserDetail{},err
-		} else {
-			log.Println("INI RESULT LINE ID dan KTP dari update: ",detail)
-			return detail,nil
-		}
-	}
-}
+//func updateNoKTP(w http.ResponseWriter, r *http.Request, userLineId string,ktp string) (UserDetail, error) {
+//	log.Println("masuk updateNoKTP")
+//	var detail UserDetail
+//
+//
+//	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
+//	// 	return RuleBasedModel{},nil
+//	// }
+//
+//	reqBody := UserDetail{
+//		LineID : userLineId,
+//		Ktp:ktp,
+//	}
+//
+//	reqBytes,err := json.Marshal(reqBody)
+//
+//	req, err := http.NewRequest("PUT", fmt.Sprintf("https://susan-service.herokuapp.com/ktp/update/"), bytes.NewBuffer(reqBytes))
+//	if err != nil {
+//		return UserDetail{}, err
+//	}
+//	req.Header.Set("Content-Type","application/json")
+//	client := &http.Client{}
+//	resp, err := client.Do(req)
+//	if err != nil {
+//
+//		return UserDetail{},err
+//	} else {
+//		defer resp.Body.Close()
+//		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
+//			return UserDetail{},err
+//		} else {
+//			log.Println("INI RESULT LINE ID dan KTP dari update: ",detail)
+//			return detail,nil
+//		}
+//	}
+//}
 
 
 func detectKtp(w http.ResponseWriter, r *http.Request, text string) (UserDetail, error) {
