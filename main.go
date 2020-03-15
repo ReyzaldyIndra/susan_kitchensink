@@ -122,6 +122,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 								//carouselBuilder(message, event.ReplyToken)
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
 							log.Print(err)
+							log.Println("ini messege setelah convert" + message.Text)
 						}
 					} else if strings.ToLower(message.Text) == "transaksi" {
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", transactionCarousel(message,event.ReplyToken))).Do(); err != nil {
