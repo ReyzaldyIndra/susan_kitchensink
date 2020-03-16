@@ -74,7 +74,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//log.Println("Ini result update :" + detail1.LineID + detail1.Ktp)
 				log.Println("Ini error detect KTP : ",err)
 				//log.Println("Ini result detect intent : " + result.Answer)
-				log.Println("userId", event.Source.UserID)
+				//log.Println("userId", event.Source.UserID)
 				//log.Println("intent:", result.Intent)
 				if detail.Ktp == "" {
 					str2 := message.Text
@@ -104,7 +104,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					//		}
 				}else if detail.Ktp != "" {
 					result, err := detectIntent(w,r,message.Text,event.Source.UserID)
-					log.Println("masuk detect intent")
+					log.Println("detect intent running")
 							//if result.Intent == "CLOSINGS"{
 							//	//log.Println("Run 1st")
 							//	//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
