@@ -104,6 +104,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					//		}
 				}else if detail.Ktp != "" {
 					result, err := detectIntent(w,r,message.Text,event.Source.UserID)
+					log.Println("masuk detect intent")
 							//if result.Intent == "CLOSINGS"{
 							//	//log.Println("Run 1st")
 							//	//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
