@@ -163,7 +163,7 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 	if err != nil {
 		log.Println("error response", resp)
 		// log.Println("INI RESULT LINE ID dan KTP dari register : ",detail)
-		events, _ := bot.ParseRequest(r)
+		// events, _ := bot.ParseRequest(r)
 		// for _, event := range events {
 		// 	if event.Type == linebot.EventTypeMessage {
 		// 		switch err := event.Message.(type) {
