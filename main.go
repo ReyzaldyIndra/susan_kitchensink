@@ -171,7 +171,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,ktp string) (UserDetail, error) {
+func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,ktp string) {
 	log.Println("masuk registerNewUser")
 	var detail UserDetail
 
@@ -187,9 +187,9 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 	reqBytes,err := json.Marshal(reqBody)
 
 	req, err := http.NewRequest("POST", fmt.Sprintf("https://susan-service.herokuapp.com/ktp/post/"), bytes.NewBuffer(reqBytes))
-	if err != nil {
-		return detail, err
-	}
+	// if err != nil {
+	// 	return detail, err
+	// }
 	req.Header.Set("Content-Type","application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -218,6 +218,7 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 	// 	}
 	// }
 	// return detail,err
+	return
 }
 
 //func updateNoKTP(w http.ResponseWriter, r *http.Request, userLineId string,ktp string) (UserDetail, error) {
