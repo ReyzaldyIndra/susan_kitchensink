@@ -217,6 +217,7 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 			return UserDetail{},err
 		}
 	}
+	return detail,err
 }
 
 //func updateNoKTP(w http.ResponseWriter, r *http.Request, userLineId string,ktp string) (UserDetail, error) {
