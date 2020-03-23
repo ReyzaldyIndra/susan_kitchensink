@@ -88,15 +88,17 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
 								log.Print(err)
 							}
+							return
 						} else if detail.Ktp == "" {
 							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Anda gagal terdaftar, silahkan masukkan lagi nomor KTP Anda")).Do(); err != nil {
 								log.Print(err)
 							}
+							return
 						}
 						// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih, anda sudah terdaftar, silahkan ajukan pertanyaan anda")).Do(); err != nil {
 						// 	log.Print(err)
 						// }
-						return
+						// return
 					} else {
 						log.Println("string error", i2)
 						log.Println("registerNewUser gak jalan")
