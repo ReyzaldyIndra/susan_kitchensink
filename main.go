@@ -68,14 +68,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				//}
 				log.Println("Ini Text nya : " + message.Text)
 				detail, err:= detectKtp(w,r,event.Source.UserID)
-				//result, err := detectIntent(w,r,message.Text,event.Source.UserID)
 				log.Println("Ini result detectKtp : IDLine :" + detail.LineID + " | Ktp" + detail.Ktp)
-				//detail1, err:= updateNoKTP(w,r,event.Source.UserID,message.Text)
-				//log.Println("Ini result update :" + detail1.LineID + detail1.Ktp)
 				log.Println("Ini error detect KTP : ",err)
-				//log.Println("Ini result detect intent : " + result.Answer)
-				//log.Println("userId", event.Source.UserID)
-				//log.Println("intent:", result.Intent)
 				if detail.Ktp == "" {
 					str2 := message.Text
 					i2, err := strconv.ParseInt(str2, 10, 64)
@@ -95,10 +89,6 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							}
 							return
 						}
-						// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih, anda sudah terdaftar, silahkan ajukan pertanyaan anda")).Do(); err != nil {
-						// 	log.Print(err)
-						// }
-						// return
 					} else {
 						log.Println("string error", i2)
 						log.Println("registerNewUser gak jalan")
@@ -108,16 +98,6 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						return
 					}
 
-					// Terima kasih anda telah terdaftar silahkan ajukan pertanyaan anda atau ketik 'menu' untuk mengetahui layanan kami
-					//}
-					//else if detail.Ktp == "" {
-					//	log.Println("No KTP tidak ada")
-					//	if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda")).Do(); err != nil {
-					//		log.Print(err)
-					//	}
-					//	updateNoKTP(w,r,event.Source.UserID,message.Text)
-					//	return
-					//		}
 				}else if detail.Ktp != "" {
 					result, err := detectIntent(w,r,message.Text,event.Source.UserID)
 					log.Println("detect intent running")
@@ -151,17 +131,6 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					}
 				}
 			}
-				//if detail.Ktp == "" {
-				//	bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Tolong masukkan nomor ktp Anda"))
-				//} else if detail.Ktp != "" {
-					
-
-				//}
-
-			// case *linebot.ImageMessage:
-			// 	if err := handleText(message, event.ReplyToken); err != nil {
-			// 		log.Print(err)
-			// 	}
 			}
 		} else if event.Type == linebot.EventTypeFollow {
 			if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Selamat datang di chatbot SUSAN. Silahkan ajukan pertanyaan Anda")).Do(); err != nil {
@@ -171,13 +140,9 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,ktp string) {
+func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,ktp string) (UserDetail, error) {
 	log.Println("masuk registerNewUser")
 	var detail UserDetail
-
-	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
-	// 	return RuleBasedModel{},nil
-	// }
 
 	reqBody := UserDetail{
 		LineID : userLineId,
@@ -187,85 +152,46 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 	reqBytes,err := json.Marshal(reqBody)
 
 	req, err := http.NewRequest("POST", fmt.Sprintf("https://susan-service.herokuapp.com/ktp/post/"), bytes.NewBuffer(reqBytes))
-	// if err != nil {
-	// 	return detail, err
-	// }
+	if err != nil {
+		log.Println("http request error")
+		return UserDetail{}, err
+	}
 	req.Header.Set("Content-Type","application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	// log.Println("ini respone su", resp)
-	// if err != nil {
-	// 	log.Println("resp err nil")
-	// 	log.Println("INI RESULT LINE ID dan KTP dari register : ",detail)
-	// 	events, _ := bot.ParseRequest(r)
-	// 	for _, event := range events {
-	// 		if event.Type == linebot.EventTypeMessage {
-	// 			switch err := event.Message.(type) {
-	// 			case *linebot.TextMessage:
-	// 				bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih anda telah terdaftar"))
-	// 				log.Println(err)
-	// 			}
-	// 		}
-	// 	}
+	if err != nil {
+		log.Println("error response", resp)
+		// log.Println("INI RESULT LINE ID dan KTP dari register : ",detail)
+		events, _ := bot.ParseRequest(r)
+		// for _, event := range events {
+		// 	if event.Type == linebot.EventTypeMessage {
+		// 		switch err := event.Message.(type) {
+		// 		case *linebot.TextMessage:
+		// 			bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih anda telah terdaftar"))
+		// 			log.Println(err)
+		// 		}
+		// 	}
+		// }
 	// 	return detail,err
-	// } else if err == nil {
-	// 	log.Println("no error", detail)
-	// 	defer resp.Body.Close()
-	// 	if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
-	// 		return detail,err
-	// 	} else {
-	// 		return UserDetail{},err
-	// 	}
-	// }
-	// return detail,err
-	return
+	} else if err == nil {
+		log.Println("no error", UserDetail{})
+		defer resp.Body.Close()
+		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
+			return UserDetail{}, err
+		} else {
+			return UserDetail{},err
+		}
+	}
+	return UserDetail{}, err
+	// return
 }
 
-//func updateNoKTP(w http.ResponseWriter, r *http.Request, userLineId string,ktp string) (UserDetail, error) {
-//	log.Println("masuk updateNoKTP")
-//	var detail UserDetail
-//
-//
-//	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
-//	// 	return RuleBasedModel{},nil
-//	// }
-//
-//	reqBody := UserDetail{
-//		LineID : userLineId,
-//		Ktp:ktp,
-//	}
-//
-//	reqBytes,err := json.Marshal(reqBody)
-//
-//	req, err := http.NewRequest("PUT", fmt.Sprintf("https://susan-service.herokuapp.com/ktp/update/"), bytes.NewBuffer(reqBytes))
-//	if err != nil {
-//		return UserDetail{}, err
-//	}
-//	req.Header.Set("Content-Type","application/json")
-//	client := &http.Client{}
-//	resp, err := client.Do(req)
-//	if err != nil {
-//
-//		return UserDetail{},err
-//	} else {
-//		defer resp.Body.Close()
-//		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
-//			return UserDetail{},err
-//		} else {
-//			log.Println("INI RESULT LINE ID dan KTP dari update: ",detail)
-//			return detail,nil
-//		}
-//	}
-//}
 
 
 func detectKtp(w http.ResponseWriter, r *http.Request, text string) (UserDetail, error) {
 	log.Println("masuk detectKtp")
 	var detail UserDetail
-
-	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
-	// 	return RuleBasedModel{},nil
-	// }
 
 	reqBody := KtpRequestModel{
 		UserLineId : text,
@@ -299,10 +225,6 @@ func detectIntent(w http.ResponseWriter, r *http.Request, text string, lineId st
 	log.Println("masuk detectIntent")
 	var result RuleBasedModel
 	
-
-	// if err := json.NewDecoder(r.Body).Decode(&reqBody);err != nil {
-	// 	return RuleBasedModel{},nil
-	// }
 
 	reqBody := RequestModel{
 		Sentence : text,
