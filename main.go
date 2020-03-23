@@ -208,7 +208,8 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 			}
 		}
 		return detail,err
-	} else {
+	} else if err == nil {
+		log.Println("no error", detail)
 		defer resp.Body.Close()
 		if err := json.NewDecoder(resp.Body).Decode(&detail); err != nil {
 			return detail,err
