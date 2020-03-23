@@ -82,6 +82,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					if err == nil {
 						log.Println(i2)
 						registerNewUser(w, r, event.Source.UserID, message.Text)
+						if _, err = detectKtp(w, r, event.Source.UserID)
+						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih, anda sudah terdaftar, silahkan ajukan pertanyaan anda")).Do(); err != nil {
+							log.Print(err)
+						}
 						return
 					} else {
 						log.Println("string error", i2)
