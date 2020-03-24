@@ -78,8 +78,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						registerNewUser(w, r, event.Source.UserID, message.Text)
 						detectKtp(w, r, event.Source.UserID)
 						if detail.Ktp != "" {
-							result, err := detectIntent(w,r,message.Text,event.Source.UserID)
-							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
+							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih, Anda telah terdaftar")).Do(); err != nil {
 								log.Print(err)
 							}
 							return
