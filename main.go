@@ -88,6 +88,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							}
 							return
 						}
+						return
 					} else {
 						log.Println("string error", i2)
 						log.Println("registerNewUser gak jalan")
