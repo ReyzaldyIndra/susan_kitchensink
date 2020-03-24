@@ -281,15 +281,15 @@ func carouselBuilder(message *linebot.TextMessage, replyToken string) *linebot.C
 		template := linebot.NewCarouselTemplate(
 			linebot.NewCarouselColumn(
 				"https://i.ibb.co/ggN2QJ4/Profile.jpg", "Profil", "Berisi berbagai macam informasi mengenai profil pelanggan",
-				linebot.NewPostbackAction("profil", "profil", "Di provinsi mana bpjs saya terdaftar?", ""),
+				linebot.NewPostbackAction("Profil", "Profil", "Di provinsi mana bpjs saya terdaftar?", ""),
 			),
 			linebot.NewCarouselColumn(
 				"https://i.ibb.co/G32j10f/Transaksi.jpg", "Transaksi", "Berisi berbagai macam informasi mengenai transaksi pelanggan",
-				linebot.NewPostbackAction("transaksi", "transaksi", "Berapa biaya bpjs saya?", ""),
+				linebot.NewPostbackAction("Transaksi", "Transaksi", "Berapa biaya bpjs saya?", ""),
 			),
 			linebot.NewCarouselColumn(
 				"https://i.ibb.co/svJSyy7/Riwayat.jpg", "Riwayat", "Berisi berbagai macam informasi mengenai riwayat pelanggan",
-				linebot.NewPostbackAction("riwayat", "riwayat", "Dimana saya terakhir dirawat?", ""),
+				linebot.NewPostbackAction("Riwayat", "Riwayat", "Apa jenis segmen saya?", ""),
 			),
 		)
 		//if _, err := bot.ReplyMessage(
