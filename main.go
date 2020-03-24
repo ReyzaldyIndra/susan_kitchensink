@@ -120,10 +120,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
 							log.Print(err)
 						}
-					} else if strings.ToLower(message.Text) == "transaksi" {
-								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", transactionCarousel(message,event.ReplyToken))).Do(); err != nil {
-									log.Print(err)
-								}
+					//} else if strings.ToLower(message.Text) == "transaksi" {
+					//			if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", transactionCarousel(message,event.ReplyToken))).Do(); err != nil {
+					//				log.Print(err)
+					//			}
 					} else if strings.ToLower(message.Text) != "menu" {
 					//carouselBuilder(message, event.ReplyToken)
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
@@ -281,15 +281,15 @@ func carouselBuilder(message *linebot.TextMessage, replyToken string) *linebot.C
 		template := linebot.NewCarouselTemplate(
 			linebot.NewCarouselColumn(
 				"https://i.ibb.co/ggN2QJ4/Profile.jpg", "Profil", "Berisi berbagai macam informasi mengenai profil pelanggan",
-				linebot.NewPostbackAction("profil", "profil", "profil", ""),
+				linebot.NewPostbackAction("profil", "profil", "Di provinsi mana bpjs saya terdaftar?", ""),
 			),
 			linebot.NewCarouselColumn(
 				"https://i.ibb.co/G32j10f/Transaksi.jpg", "Transaksi", "Berisi berbagai macam informasi mengenai transaksi pelanggan",
-				linebot.NewPostbackAction("transaksi", "transaksi", "transaksi", ""),
+				linebot.NewPostbackAction("transaksi", "transaksi", "Berapa biaya bpjs saya?", ""),
 			),
 			linebot.NewCarouselColumn(
 				"https://i.ibb.co/svJSyy7/Riwayat.jpg", "Riwayat", "Berisi berbagai macam informasi mengenai riwayat pelanggan",
-				linebot.NewPostbackAction("riwayat", "riwayat", "riwayat", ""),
+				linebot.NewPostbackAction("riwayat", "riwayat", "Dimana saya terakhir dirawat?", ""),
 			),
 		)
 		//if _, err := bot.ReplyMessage(
@@ -312,21 +312,21 @@ func carouselBuilder(message *linebot.TextMessage, replyToken string) *linebot.C
 	
 }
 
-func transactionCarousel(message *linebot.TextMessage, replyToken string) *linebot.CarouselTemplate {
-	log.Println("masuk transactionCarousel")
-	template := linebot.NewCarouselTemplate(
-		linebot.NewCarouselColumn(
-			"", "Biaya", "keterangan biaya",
-			linebot.NewPostbackAction("Biaya", "Biaya", "Berapa biaya bpjs saya?", ""),
-		),
-		linebot.NewCarouselColumn(
-			"", "Tagihan", "Keterangan tagihan",
-			linebot.NewPostbackAction("Tagihan", "Tagihan", "Berapa tagihan bpjs saya?", ""),
-		),
-		linebot.NewCarouselColumn(
-			"", "Iuran", "Keterangan iuran",
-			linebot.NewPostbackAction("Iuran", "Iuran", "Berapa iuran bpjs saya", ""),
-		),
-	)
-	return template
-}
+//func transactionCarousel(message *linebot.TextMessage, replyToken string) *linebot.CarouselTemplate {
+//	log.Println("masuk transactionCarousel")
+//	template := linebot.NewCarouselTemplate(
+//		linebot.NewCarouselColumn(
+//			"", "Biaya", "keterangan biaya",
+//			linebot.NewPostbackAction("Biaya", "Biaya", "Berapa biaya bpjs saya?", ""),
+//		),
+//		linebot.NewCarouselColumn(
+//			"", "Tagihan", "Keterangan tagihan",
+//			linebot.NewPostbackAction("Tagihan", "Tagihan", "Berapa tagihan bpjs saya?", ""),
+//		),
+//		linebot.NewCarouselColumn(
+//			"", "Iuran", "Keterangan iuran",
+//			linebot.NewPostbackAction("Iuran", "Iuran", "Berapa iuran bpjs saya", ""),
+//		),
+//	)
+//	return template
+//}
