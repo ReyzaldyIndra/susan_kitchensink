@@ -77,18 +77,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						log.Println(i2)
 						registerNewUser(w, r, event.Source.UserID, message.Text)
 						// detectKtp(w, r, event.Source.UserID)
-						if detail.Ktp != "" {
-							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih, Anda telah terdaftar")).Do(); err != nil {
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih, Anda telah terdaftar")).Do(); err != nil {
 								log.Print(err)
 							}
-							return
-						} else if detail.Ktp == "" {
-							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Anda gagal terdaftar, silahkan masukkan lagi nomor KTP Anda")).Do(); err != nil {
-								log.Print(err)
-							}
-							return
-						}
-						return
+						
 					} else {
 						log.Println("string error", i2)
 						log.Println("registerNewUser gak jalan")
