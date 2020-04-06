@@ -77,7 +77,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						log.Println(i2)
 						registerNewUser(w, r, event.Source.UserID, message.Text)
 						// detectKtp(w, r, event.Source.UserID)
-						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih, Anda telah terdaftar")).Do(); err != nil {
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih, Anda telah terdaftar. Silahkan ajukan kembali pertanyaan Anda.")).Do(); err != nil {
 								log.Print(err)
 							}
 						
