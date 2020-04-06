@@ -76,7 +76,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					if err == nil {
 						log.Println(i2)
 						registerNewUser(w, r, event.Source.UserID, message.Text)
-						//detectKtp(w, r, event.Source.UserID)
+						// detectKtp(w, r, event.Source.UserID)
 						if detail.Ktp != "" {
 							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih, Anda telah terdaftar")).Do(); err != nil {
 								log.Print(err)
