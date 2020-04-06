@@ -76,7 +76,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					if err == nil {
 						log.Println(i2)
 						registerNewUser(w, r, event.Source.UserID, message.Text)
-						detectKtp(w, r, event.Source.UserID)
+						//detectKtp(w, r, event.Source.UserID)
 						if detail.Ktp != "" {
 							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih, Anda telah terdaftar")).Do(); err != nil {
 								log.Print(err)
@@ -159,21 +159,8 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 	req.Header.Set("Content-Type","application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
-	// log.Println("ini respone su", resp)
 	if err != nil {
 		log.Println("error response", resp)
-		// log.Println("INI RESULT LINE ID dan KTP dari register : ",detail)
-		// events, _ := bot.ParseRequest(r)
-		// for _, event := range events {
-		// 	if event.Type == linebot.EventTypeMessage {
-		// 		switch err := event.Message.(type) {
-		// 		case *linebot.TextMessage:
-		// 			bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Terima kasih anda telah terdaftar"))
-		// 			log.Println(err)
-		// 		}
-		// 	}
-		// }
-	// 	return detail,err
 	} else if err == nil {
 		log.Println("no error", UserDetail{})
 		defer resp.Body.Close()
@@ -184,7 +171,6 @@ func registerNewUser(w http.ResponseWriter, r *http.Request, userLineId string,k
 		}
 	}
 	return UserDetail{}, err
-	// return
 }
 
 
