@@ -109,6 +109,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						}
 					}
 				} else if detail.LineID == "" || detail.LineID == "null" {
+
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda belum terdaftar, silahkan memulai proses otentikasi dengan memasukkan nomor KTP Anda.")).Do(); err != nil {
+						log.Print(err)
+					}
 					str2 := message.Text
 					i1, err := strconv.ParseInt(str2, 10, 64)
 					if err == nil {
