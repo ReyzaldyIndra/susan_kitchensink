@@ -109,21 +109,23 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						}
 					}
 				} else if detail.LineID == "" || detail.LineID == "null" {
-
-					if _, err = bot.PushMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda belum terdaftar pada database kami, silahkan memulai proses otentikasi dengan memasukkan nomor KTP Anda.")).Do(); err != nil {
-						log.Print(err)
+					if event.Type == linebot.EventTypeMessage {
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda belum terdaftar di sistem kami. Untuk memulai proses otentikasi, silahkan masukkan nomor KTP Anda.")).Do(); err != nil {
+							log.Print(err)
+						}
 					}
+
 					str2 := message.Text
 					i1, err := strconv.ParseInt(str2, 10, 64)
 					if err == nil {
 						log.Println(i1)
 						// panggil function utk cek available ktp
-						detectAvailKtp(w,r, message.Text)
-						if detail.Ktp == "" {
+						avail, err := detectAvailKtp(w,r, message.Text)
+						if avail.Ktp == "" {
 							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Pengguna dengan nomor KTP" + message.Text + " belum terdaftar di BPJS.")).Do(); err != nil {
 								log.Print(err)
 							}
-						} else  if detail.Ktp != "" {
+						} else  if avail.Ktp != "" {
 							//panggil fungsi updateKTP
 							updateLineUser(w,r, event.Source.UserID, message.Text)
 							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda berhasil tercatat untuk nomor KTP " + detail.Ktp + " silahkan ajukan pertanyaan Anda.")).Do(); err != nil {
