@@ -139,7 +139,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		} else if event.Type == linebot.EventTypeFollow {
-			if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Selamat datang di chatbot SUSAN. Sebagai langkah awal otentikasi, silahkan masukkan nomor KTP Anda.")).Do(); err != nil {
+			if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Selamat datang di chatbot SUSAN. Silahkan mengajukan pertanyaan Anda")).Do(); err != nil {
 				log.Print(err)
 			}
 		}
