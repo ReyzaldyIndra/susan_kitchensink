@@ -109,10 +109,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						}
 					}
 				} else if detail.LineID == "" || detail.LineID == "null" {
-					detectKtp(w,r,event.Source.UserID)
-					if detail.LineID == "" || detail.LineID == "null" {
-						bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda belum terdaftar di sistem kami. Untuk memulai proses otentikasi, silahkan masukkan nomor KTP Anda.")).Do()
-					} else if detail.LineID != "" || detail.LineID != "null" {
+					//detectKtp(w,r,event.Source.UserID)
+					//if detail.LineID == "" || detail.LineID == "null" {
+					//	bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda belum terdaftar di sistem kami. Untuk memulai proses otentikasi, silahkan masukkan nomor KTP Anda.")).Do()
+					//} else if detail.LineID != "" || detail.LineID != "null" {
 						str2 := message.Text
 						i1, err := strconv.ParseInt(str2, 10, 64)
 						if err == nil {
@@ -142,7 +142,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						}
 					}
 
-				}
+
 			}
 		} else if event.Type == linebot.EventTypeFollow {
 			if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Selamat datang di chatbot SUSAN. Silahkan mengajukan pertanyaan Anda")).Do(); err != nil {
