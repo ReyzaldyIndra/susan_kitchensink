@@ -109,13 +109,13 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						}
 					}
 				} else if detail.LineID == "" || detail.LineID == "null" {
-					if event.Type == linebot.EventTypeMessage {
-						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda belum terdaftar di sistem kami. Untuk memulai proses otentikasi, silahkan masukkan nomor KTP Anda.")).Do(); err != nil {
+
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda belum terdaftar di sistem kami. Untuk memulai proses otentikasi, silahkan masukkan nomor KTP Anda.")).Do(); err != nil {
 							log.Print(err)
 						}
 
-					} else  if event.Type ==  linebot.EventTypeFollow {
-						if message.Text != ""{
+					 if event.Type ==  linebot.EventTypeMessage {
+
 							str2 := message.Text
 							i1, err := strconv.ParseInt(str2, 10, 64)
 							if err == nil {
@@ -143,7 +143,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 								}
 								return
 							}
-						}
+
 					}
 
 				}
