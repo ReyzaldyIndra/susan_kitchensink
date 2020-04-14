@@ -135,7 +135,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						} else {
 							log.Println("string error", i1)
 							log.Println("input bukan ktp")
-							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Silahkan masukkan hanya angka nomor KTP Anda.")).Do(); err != nil {
+							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda belum terdaftar di sistem kami. Untuk memulai proses otentikasi, silahkan masukkan nomor KTP Anda.")).Do(); err != nil {
 								log.Print(err)
 							}
 							return
