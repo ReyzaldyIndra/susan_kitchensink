@@ -110,7 +110,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					}
 				} else if detail.LineID == "" || detail.LineID == "null" {
 
-					bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda belum terdaftar di sistem kami. Untuk memulai proses otentikasi, silahkan masukkan nomor KTP Anda."))
+					bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda belum terdaftar di sistem kami. Untuk memulai proses otentikasi, silahkan masukkan nomor KTP Anda.")).Do()
 
 					 if event.Type ==  linebot.EventTypeMessage {
 
