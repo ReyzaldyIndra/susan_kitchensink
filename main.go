@@ -75,10 +75,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						result, err := detectIntent(w,r,message.Text,event.Source.UserID)
 						log.Println("detect intent running")
 						if result.Intent == "CLOSINGS"{
-							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
-								log.Print(err)
-							}
-							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
+							//if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s", result.Answer))).Do(); err != nil {
+							//	log.Print(err)
+							//}
+							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage(result.Answer, carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
 								log.Print(err)
 							}
 						}
