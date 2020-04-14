@@ -74,7 +74,11 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					if detail.Ktp != "" {
 						result, err := detectIntent(w,r,message.Text,event.Source.UserID)
 						log.Println("detect intent running")
-						//if result.Intent == "CLOSINGS"{
+						if result.Intent == "CLOSINGS"{
+							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTemplateMessage("Carousel alt text", carouselBuilder(message,event.ReplyToken))).Do(); err != nil {
+								log.Print(err)
+							}
+						}
 						//	//log.Println("Run 1st")
 						//	//bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(fmt.Sprintf("%s",result.Answer))).Do()
 						//	////time.Sleep(2*time.Second)
