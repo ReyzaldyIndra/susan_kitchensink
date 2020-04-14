@@ -127,7 +127,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							// panggil function utk cek available ktp
 							avail, err := detectAvailKtp(w,r, message.Text)
 							if avail.Ktp == "" {
-								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Pengguna dengan nomor KTP" + message.Text + " belum terdaftar di BPJS.")).Do(); err != nil {
+								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Pengguna dengan nomor KTP" + message.Text + " belum terdaftar di BPJS. Harap masukkan nomor KTP yang terdaftar.")).Do(); err != nil {
 									log.Print(err)
 								}
 							} else  if avail.Ktp != "" {
