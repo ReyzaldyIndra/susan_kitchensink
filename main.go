@@ -114,7 +114,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							log.Print(err)
 						}
 					}
-					if message.Text == "" {
+					if message.Text != ""{
 						str2 := message.Text
 						i1, err := strconv.ParseInt(str2, 10, 64)
 						if err == nil {
@@ -143,8 +143,6 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							return
 						}
 					}
-
-
 				}
 			}
 		} else if event.Type == linebot.EventTypeFollow {
