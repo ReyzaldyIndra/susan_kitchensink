@@ -70,6 +70,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				detail, err:= detectKtp(w,r,event.Source.UserID)
 				log.Println("Ini result detectKtp : IDLine :" + detail.LineID + " | Ktp" + detail.Ktp)
 				log.Println("Ini error detect KTP : ",err)
+				//untuk testing
+				log.Println("ReplyToken", event.ReplyToken)
 				if detail.LineID != "" {
 					if detail.Ktp != "" {
 						result, err := detectIntent(w,r,message.Text,event.Source.UserID)
