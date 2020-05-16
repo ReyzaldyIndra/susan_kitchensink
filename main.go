@@ -113,7 +113,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							}
 						}
 					} else if detail.Ktp == "" || detail.Ktp == "null"{
-						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Anda belum terdaftar di BPJS.")).Do(); err != nil {
+						if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Mohon maaf Anda belum terdaftar di BPJS.")).Do(); err != nil {
 							log.Print(err)
 						}
 					}
@@ -129,13 +129,13 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							// panggil function utk cek available ktp
 							avail, err := detectAvailKtp(w,r, message.Text)
 							if avail.Ktp == "" {
-								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Pengguna dengan nomor KTP" + message.Text + " belum terdaftar di BPJS. Harap masukkan nomor KTP yang terdaftar.")).Do(); err != nil {
+								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Mohon maaf pengguna dengan nomor KTP" + message.Text + " belum terdaftar di BPJS. Harap masukkan nomor KTP yang terdaftar.")).Do(); err != nil {
 									log.Print(err)
 								}
 							} else  if avail.Ktp != "" {
 								//panggil fungsi updateKTP
 								updateLineUser(w,r, event.Source.UserID, message.Text)
-								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda berhasil tercatat untuk nomor KTP " + avail.Ktp + " silahkan ajukan pertanyaan Anda.")).Do(); err != nil {
+								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Selamat Id Line Anda berhasil terdaftar untuk nomor KTP " + avail.Ktp + ". Selanjutnya silahkan ajukan pertanyaan Anda untuk memulai percakapan.")).Do(); err != nil {
 									log.Print(err)
 								}
 								return
@@ -144,7 +144,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						} else {
 							log.Println("string error", i1)
 							log.Println("input bukan ktp")
-							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Id Line Anda belum terdaftar di sistem kami. Untuk memulai proses otentikasi, silahkan masukkan nomor KTP Anda.")).Do(); err != nil {
+							if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Mohon maaf Id Line Anda belum terdaftar di sistem kami. Untuk memulai proses pendaftaran, silahkan kirimkan nomor KTP Anda.")).Do(); err != nil {
 								log.Print(err)
 							}
 							return
@@ -154,7 +154,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 			}
 		} else if event.Type == linebot.EventTypeFollow {
-			if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Selamat datang di chatbot SUSAN. Silahkan mengajukan pertanyaan Anda")).Do(); err != nil {
+			if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Selamat datang di chatbot SUSAN. Silahkan ajukan pertanyaan Anda untuk memulai percakapan atau kirimkan pesan \"menu\" untuk memunculkan menu kami.")).Do(); err != nil {
 				log.Print(err)
 			}
 		}
@@ -358,16 +358,16 @@ func carouselBuilder(message *linebot.TextMessage, replyToken string) *linebot.C
 		log.Println("iki carousel")
 		template := linebot.NewCarouselTemplate(
 			linebot.NewCarouselColumn(
-				"https://i.ibb.co/ggN2QJ4/Profile.jpg", "Profil", "Berisi berbagai macam informasi mengenai profil pelanggan",
+				"https://i.ibb.co/ggN2QJ4/Profile.jpg", "Profil", "Berisi informasi di provinsi mana Anda terdaftar.",
 				linebot.NewPostbackAction("Profil", "Profil", "Di provinsi mana bpjs saya terdaftar?", ""),
 			),
 			linebot.NewCarouselColumn(
-				"https://i.ibb.co/G32j10f/Transaksi.jpg", "Transaksi", "Berisi berbagai macam informasi mengenai transaksi pelanggan",
+				"https://i.ibb.co/G32j10f/Transaksi.jpg", "Transaksi", "Berisi informasi besar biaya BPJS yang harus anda bayarkan.",
 				linebot.NewPostbackAction("Transaksi", "Transaksi", "Berapa biaya bpjs saya?", ""),
 			),
 			linebot.NewCarouselColumn(
-				"https://i.ibb.co/svJSyy7/Riwayat.jpg", "Riwayat", "Berisi berbagai macam informasi mengenai riwayat pelanggan",
-				linebot.NewPostbackAction("Riwayat", "Riwayat", "Apa jenis segmen saya?", ""),
+				"https://i.ibb.co/svJSyy7/Riwayat.jpg", "Riwayat", "Berisi informasi rujukan terakhir kali anda berobat",
+				linebot.NewPostbackAction("Riwayat", "Riwayat", "Apa rujukan terakhir saya?", ""),
 			),
 		)
 		//if _, err := bot.ReplyMessage(

@@ -1,0 +1,267 @@
+[33mcommit 54c0bc7478a4d84f475dff81d45ffb1963cb4701[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31mheroku/master[m[33m, [m[1;31mheroku/HEAD[m[33m)[m
+Author: adedwip_ <adedwipayana1@gmail.com>
+Date:   Tue Mar 24 20:48:05 2020 +0700
+
+    change text riwayat carousel
+
+[33mcommit d013ecfc22591d3109cd0c7e22d1210a2d1e8c5d[m
+Author: adedwip_ <adedwipayana1@gmail.com>
+Date:   Tue Mar 24 20:40:28 2020 +0700
+
+    fix carousel
+
+[33mcommit d67b1df76616d76582b252f6585364bf155ef028[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Tue Mar 24 16:17:22 2020 +0700
+
+    add return
+
+[33mcommit 0ef1309f0adfce7246f55085be33ec325c216513[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Tue Mar 24 15:26:06 2020 +0700
+
+    change detect intent into message after register
+
+[33mcommit bd1b506623da087c1726d8003486db997214bb77[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Mon Mar 23 13:53:32 2020 +0700
+
+    comment out resp register
+
+[33mcommit cf67302a751fafe4171a35499d64f13322c07b0a[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Mon Mar 23 13:49:19 2020 +0700
+
+    comment out resp register
+
+[33mcommit c043a58c92e93e93c9d99496ae174b9920f72005[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Mon Mar 23 13:38:36 2020 +0700
+
+    comment out resp register
+
+[33mcommit 9ad0e5a355fa51800f3b675b0144619fb1daf723[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Mon Mar 23 13:36:13 2020 +0700
+
+    comment out resp register
+
+[33mcommit 9003a561d55a92b9e67f0895fd47f343f6136743[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Mon Mar 23 13:30:59 2020 +0700
+
+    add log after register success
+
+[33mcommit 90233103fe4ec9575bd637e8c89bab941ce4b83c[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Mon Mar 23 13:29:37 2020 +0700
+
+    add log after register success
+
+[33mcommit 92d08c6d38eb0e216fd8fb8ed17d0486c8698b70[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Mon Mar 23 13:18:32 2020 +0700
+
+    move return
+
+[33mcommit 01f009bea194fef6c25fb1ee9b7f8f09f294ea68[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Mon Mar 23 13:00:19 2020 +0700
+
+    add detection ktp after registerNewUser
+
+[33mcommit 9a76a74c8af9179338aeb494c24c67dad40de551[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Mon Mar 23 12:54:52 2020 +0700
+
+    add detection ktp after registerNewUser)
+
+[33mcommit 15557792416ca0bb06ce284a9e7836a4bb2d1a3c[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Mon Mar 16 13:23:31 2020 +0700
+
+    add log
+
+[33mcommit e36a41af53f822732fcc0fefc89592648c75e62b[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Mon Mar 16 13:12:15 2020 +0700
+
+    add log
+
+[33mcommit 267f7bec75d44fb39914b3c134933a7ea8d96629[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Mon Mar 16 13:06:26 2020 +0700
+
+    add log
+
+[33mcommit 6757bd07ed017fc06167911bc3213bb470dc725f[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Sun Mar 15 19:11:28 2020 +0700
+
+    fix carousel
+
+[33mcommit 08947ec83526e6ec78265aac8bdf11cf77889d2a[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Sun Mar 15 12:49:16 2020 +0700
+
+    fix lowercase fuction
+
+[33mcommit 3628628f6e7666ecf2a0cf20437168241664ef46[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Sun Mar 15 12:44:31 2020 +0700
+
+    add lowercase fuction
+
+[33mcommit 204d6a0a4390f0ae5ba95a41dd522a19d242c180[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Sun Mar 15 12:23:52 2020 +0700
+
+    add lowercase fuction
+
+[33mcommit bc8cae1f73b742bf5ae2e792abd97bfc110a85a3[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 19:15:34 2020 +0700
+
+    fix konfirm pendaftaran kolong
+
+[33mcommit 1cd7b56739c6d3bd77d32118c077a8d2064d3790[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 19:12:45 2020 +0700
+
+    fix konfirm pendaftaran kolong
+
+[33mcommit daae53cc2390f887655e4a6f8553464735ad4bbf[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 19:09:56 2020 +0700
+
+    fix konfirm pendaftaran kolong
+
+[33mcommit 3647f4c532601776c88968d62922b2b8dbf38daf[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 19:07:22 2020 +0700
+
+    fix konfirm pendaftaran kolong
+
+[33mcommit 07f4a50fb799ad9554da93b0d77b683732b6b754[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 19:00:59 2020 +0700
+
+    fix konfirm pendaftaran kolong
+
+[33mcommit c9739450a1bdc7426bbcb2cbc57bbd5f50264fa7[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 18:19:06 2020 +0700
+
+    fix konfirm pendaftaran kolong
+
+[33mcommit ae81216d00286d6708d5896915d93782bbcda17a[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 18:09:25 2020 +0700
+
+    fix konfirm pendaftaran kolong
+
+[33mcommit faf1ae8f549ae2b738e20c5d435a80045e7074db[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 18:01:26 2020 +0700
+
+    fix konfirm pendaftaran cok
+
+[33mcommit 20567d410f3e0932638a306a575a810ab47c98d8[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 17:50:35 2020 +0700
+
+    fix konfirm pendaftaran
+
+[33mcommit e3d7a08f94a850bae9a746d33859fcea9083a654[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 17:36:33 2020 +0700
+
+    fix konfirm pendaftaran
+
+[33mcommit 1a8af599e15faa01512bebe1013e22dd53c693f4[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 17:30:25 2020 +0700
+
+    fix confirm pendaftaran
+
+[33mcommit 97a00e17dea091ca51b595b724c0b932b7e089f1[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 17:06:30 2020 +0700
+
+    konfirm pendaftaran
+
+[33mcommit b08eabe0e2db36825d2b06152aed1e53a6ab792a[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 17:04:24 2020 +0700
+
+    konfirm pendaftaran
+
+[33mcommit 5b2c817eebfbfe217327a76cd3ad4fa392395a69[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 17:02:05 2020 +0700
+
+    konfirm pendaftaran
+
+[33mcommit 8ca5b1a3945f206889ecff38da33aa2eb725e182[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 16:39:22 2020 +0700
+
+    add log
+
+[33mcommit 2837a15a1d7c8632098590cbe9810b93dba27888[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 16:31:25 2020 +0700
+
+    aktivasi detect intent
+
+[33mcommit edcc7871abb7fd8082e2a8527207b1f8bab8338a[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 16:04:36 2020 +0700
+
+    aktivasi detect intent
+
+[33mcommit e07856370dffe1418ceadfd7b87a61076a7c3012[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 16:01:10 2020 +0700
+
+    change condition
+
+[33mcommit 518292bb1c7c212bdbf33f1de6960d03ccd5c7d1[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 15:57:30 2020 +0700
+
+    change condition
+
+[33mcommit 8d90664ec87b2ba18615da16d349a3d34c5490fa[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Fri Mar 13 14:54:14 2020 +0700
+
+    change condition
+
+[33mcommit 2b0e0ea6c18512a0bf28204b39398e9914a4c339[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Fri Mar 13 00:16:15 2020 +0700
+
+    change regis message
+
+[33mcommit 3104bc6a318b140165e93de3410a0ce148c52662[m
+Author: reyzaldy <Reyzaldy Indra>
+Date:   Thu Mar 12 23:56:35 2020 +0700
+
+    edit ktp response
+
+[33mcommit 50335ceca22099c3ee11500325692baa2ce0bbf4[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Sat Mar 7 23:14:23 2020 +0700
+
+    fix transaksi
+
+[33mcommit ad0cc43f488514c1da8a04a24c8d452bcb88bd05[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Sat Mar 7 23:11:08 2020 +0700
+
+    fix transaksi
+
+[33mcommit cc3b1f373d9c3fe0051cf4db95b802069050451c[m
+Author: Ade Dwi Payana <46589818+adedwip@users.noreply.github.com>
+Date:   Sat Mar 7 23:08:06
