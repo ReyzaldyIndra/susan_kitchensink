@@ -155,7 +155,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		} else if event.Type == linebot.EventTypeFollow {
 			if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Selamat datang di chatbot SUSAN. Silahkan ajukan pertanyaan Anda untuk memulai percakapan atau kirimkan pesan \"menu\" untuk memunculkan menu kami."),
-				linebot.NewImageMessage("https://i.ibb.co/1GHMdPq/Group-19.png","https://i.ibb.co/1GHMdPq/Group-19.png")).Do(); err != nil {
+				linebot.NewImageMessage("https://i.ibb.co/ysrT8bM/Group-19.png","https://i.ibb.co/ysrT8bM/Group-19.png")).Do(); err != nil {
 				log.Print(err)
 			}
 		}
